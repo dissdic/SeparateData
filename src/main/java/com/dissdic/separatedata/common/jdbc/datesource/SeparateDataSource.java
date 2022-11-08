@@ -1,6 +1,7 @@
 package com.dissdic.separatedata.common.jdbc.datesource;
 
 import com.dissdic.separatedata.common.config.SeparateDataConfig;
+import com.dissdic.separatedata.common.jdbc.connection.SeparateDataConnection;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -13,19 +14,29 @@ public class SeparateDataSource implements DataSource {
 
     private SeparateDataConfig separateDataConfig;
 
+    public SeparateDataSource(SeparateDataConfig separateDataConfig){
+        this.separateDataConfig = separateDataConfig;
+    }
+
     @Override
     public Connection getConnection() throws SQLException {
-        return separateDataConfig.getDataSource().getConnection();
+        return new SeparateDataConnection(separateDataConfig.getDataSource().getConnection());
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return separateDataConfig.getDataSource().getConnection();
+        return new SeparateDataConnection(separateDataConfig.getDataSource().getConnection());
     }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
-        return separateDataConfig.getDataSource().unwrap(iface);
+
+        T t = separateDataConfig.getDataSource().unwrap(iface);
+        if(t instanceof Connection){
+            return (T)new SeparateDataConnection(t);
+        }else{
+            return t;
+        }
     }
 
     @Override
@@ -50,11 +61,11 @@ public class SeparateDataSource implements DataSource {
 
     @Override
     public int getLoginTimeout() throws SQLException {
-        return 0;
+        return separateDataConfig.getDataSource().getLoginTimeout();
     }
 
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        return null;
+        return separateDataConfig.getDataSource().getParentLogger();
     }
 }

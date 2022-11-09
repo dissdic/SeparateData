@@ -1,10 +1,5 @@
 package com.dissdic.separatedata.common.jdbc.statement;
 
-import com.dissdic.separatedata.common.config.SeparateDataConfig;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import com.zaxxer.hikari.pool.HikariProxyConnection;
-
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;

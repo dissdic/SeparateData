@@ -1,20 +1,19 @@
 package com.dissdic.separatedata.common.jdbc.datesource;
 
-import com.dissdic.separatedata.common.config.SeparateDataConfig;
+import com.dissdic.separatedata.common.config.ExpressionToDataBaseMappingConfig;
 import com.dissdic.separatedata.common.jdbc.connection.SeparateDataConnection;
 
-import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
-public class SeparateDataSource implements DataSource {
+public class SeparateDataDataSource extends AbstractDataSource implements AutoCloseable {
 
-    private SeparateDataConfig separateDataConfig;
+    private ExpressionToDataBaseMappingConfig separateDataConfig;
 
-    public SeparateDataSource(SeparateDataConfig separateDataConfig){
+    public SeparateDataDataSource(ExpressionToDataBaseMappingConfig separateDataConfig){
         this.separateDataConfig = separateDataConfig;
     }
 
@@ -67,5 +66,10 @@ public class SeparateDataSource implements DataSource {
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         return separateDataConfig.getDataSource().getParentLogger();
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }

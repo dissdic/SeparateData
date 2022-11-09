@@ -20,7 +20,7 @@ public class SeparateDataConnection implements Connection {
 
     @Override
     public Statement createStatement() throws SQLException {
-        return null;
+        return ;
     }
 
     @Override

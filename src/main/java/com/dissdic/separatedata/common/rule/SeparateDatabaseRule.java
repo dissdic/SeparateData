@@ -1,10 +1,16 @@
 package com.dissdic.separatedata.common.rule;
 
 import java.util.List;
+import java.util.Map;
 
 public class SeparateDatabaseRule {
 
-    private String dbName;
+    //mode=0 水平分库 mode=1垂直分库
+    private int mode;
+    //垂直分库时 主库
+    private String mainDataBase;
+    //垂直分库时 分库和所包含的表的映射
+    private Map<String,List<String>> subDataBasesAndTables;
 
     private String tableName;
 

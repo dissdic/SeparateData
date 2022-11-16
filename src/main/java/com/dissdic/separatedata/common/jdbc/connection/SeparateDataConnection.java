@@ -1,51 +1,51 @@
 package com.dissdic.separatedata.common.jdbc.connection;
 
+import com.dissdic.separatedata.common.context.ContextHolder;
+import com.dissdic.separatedata.common.context.RuleAndDataSourceContext;
+import com.dissdic.separatedata.common.jdbc.connection.manager.ConnectionManager;
+import com.dissdic.separatedata.common.jdbc.connection.manager.SeparateConnectionManager;
+import com.dissdic.separatedata.common.jdbc.statement.SeparateDataPreparedStatement;
 import org.omg.CORBA.CODESET_INCOMPATIBLE;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class SeparateDataConnection implements Connection {
+import static java.lang.reflect.Proxy.newProxyInstance;
 
-    private Sepa connection;
+public class SeparateDataConnection extends AbstractUnsupportedOperationConnection {
 
-    public SeparateDataConnection(Connection conn){
-        this.connection = conn;
-    }
-    public SeparateDataConnection(Object obj){
-        this.connection = (Connection) obj;
+    private ConnectionManager connectionManager;
+
+    private boolean autoCommit = true;
+
+    public SeparateDataConnection(){
+        InvocationHandler handler = Optional.ofNullable(ContextHolder.getConnectionManagerHandler()).orElse((proxy, method, args) -> method.invoke(new SeparateConnectionManager(),args));
+        connectionManager = (ConnectionManager)newProxyInstance(this.getClass().getClassLoader(),new Class[]{ConnectionManager.class},handler);
     }
 
     @Override
     public Statement createStatement() throws SQLException {
-        return ;
+        return new SeparateDataPreparedStatement(this);
     }
 
     @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public CallableStatement prepareCall(String sql) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String nativeSQL(String sql) throws SQLException {
-        return connection.nativeSQL(sql);
+        return new SeparateDataPreparedStatement(this,sql);
     }
 
     @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException {
-        connection.setAutoCommit(autoCommit);
+        connectionManager.setAutoCommit(autoCommit);
     }
 
     @Override
     public boolean getAutoCommit() throws SQLException {
-        return connection.getAutoCommit();
+        return this.autoCommit;
     }
 
     @Override

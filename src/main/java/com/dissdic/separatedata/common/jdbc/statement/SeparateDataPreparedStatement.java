@@ -10,6 +10,14 @@ import java.util.Calendar;
 public class SeparateDataPreparedStatement extends AbstractPreparedStatement {
 
 
+    public SeparateDataPreparedStatement(Connection connection){
+
+    }
+
+    public SeparateDataPreparedStatement(Connection connection,String sql){
+
+    }
+
     @Override
     public ResultSet executeQuery() throws SQLException {
         return null;

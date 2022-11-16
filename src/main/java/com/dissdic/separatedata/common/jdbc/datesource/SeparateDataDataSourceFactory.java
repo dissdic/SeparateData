@@ -6,13 +6,11 @@ import java.util.List;
 
 public class SeparateDataDataSourceFactory {
 
-    SeparateDataDataSource obtainDataSource(List<RuleAndDataSourceContext> configList){
+    SeparateDataDataSource obtainDataSource(String database){
 
-
+        return null;
     }
 
-    SeparateDataDataSource obtainDataSource(List<RuleAndDataSourceContext> configList,List<>){
 
 
-    }
 }

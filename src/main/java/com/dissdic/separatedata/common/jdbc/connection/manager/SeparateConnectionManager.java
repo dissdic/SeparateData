@@ -1,19 +1,37 @@
 package com.dissdic.separatedata.common.jdbc.connection.manager;
 
 import java.sql.Connection;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SeparateConnectionManager implements ConnectionManager,AutoCloseable{
 
-    private List<Connection> connections;
+    private ConcurrentHashMap<String,Connection> connectionMap;
 
+    @Override
     public List<Connection> getConnections() {
-        return connections;
+        return new ArrayList<>(connectionMap.values());
     }
 
-    public void setConnections(List<Connection> connections) {
-        this.connections = connections;
+    @Override
+    public void setAutoCommit(boolean autoCommit) throws SQLException{
+        Map<Connection,Boolean> autocommit = new HashMap<>();
+        for (Connection connection : connectionMap.values()) {
+            try{
+                boolean ac = connection.getAutoCommit();
+                connection.setAutoCommit(autoCommit);
+                autocommit.put(connection,ac);
+            }catch (SQLException e){
+                for (Connection conn : autocommit.keySet()) {
+                    conn.setAutoCommit(autocommit.get(conn));
+                }
+                throw e;
+            }
+
+        }
     }
+
 
     @Override
     public void close() throws Exception {
@@ -22,6 +40,7 @@ public class SeparateConnectionManager implements ConnectionManager,AutoCloseabl
 
     @Override
     public Connection getConnection(String dataBase) {
+
         return null;
     }
 }

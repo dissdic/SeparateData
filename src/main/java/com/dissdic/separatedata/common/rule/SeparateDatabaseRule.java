@@ -12,44 +12,51 @@ public class SeparateDatabaseRule {
     //垂直分库时 分库和所包含的表的映射
     private Map<String,List<String>> subDataBasesAndTables;
 
-    private String tableName;
-
-    private List<String> columns;
-
+    //水平分库时 切分数据的表
+    private String table;
+    //水平分库时 所有的数据库名
+    private List<String> dataBases;
+    //水平分库时 表数据分割算法 返回的值应该是数据库名称
     private String luaExpression;
 
-    List<SeparateTableRule> tableRules;
-
-    public List<SeparateTableRule> getTableRules() {
-        return tableRules;
+    public int getMode() {
+        return mode;
     }
 
-    public void setTableRules(List<SeparateTableRule> tableRules) {
-        this.tableRules = tableRules;
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 
-    public String getDbName() {
-        return dbName;
+    public String getMainDataBase() {
+        return mainDataBase;
     }
 
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
+    public void setMainDataBase(String mainDataBase) {
+        this.mainDataBase = mainDataBase;
     }
 
-    public String getTableName() {
-        return tableName;
+    public Map<String, List<String>> getSubDataBasesAndTables() {
+        return subDataBasesAndTables;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setSubDataBasesAndTables(Map<String, List<String>> subDataBasesAndTables) {
+        this.subDataBasesAndTables = subDataBasesAndTables;
     }
 
-    public List<String> getColumns() {
-        return columns;
+    public String getTable() {
+        return table;
     }
 
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public List<String> getDataBases() {
+        return dataBases;
+    }
+
+    public void setDataBases(List<String> dataBases) {
+        this.dataBases = dataBases;
     }
 
     public String getLuaExpression() {

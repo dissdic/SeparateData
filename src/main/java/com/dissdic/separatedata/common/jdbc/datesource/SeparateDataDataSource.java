@@ -1,6 +1,6 @@
 package com.dissdic.separatedata.common.jdbc.datesource;
 
-import com.dissdic.separatedata.common.config.ExpressionToDataBaseMappingConfig;
+import com.dissdic.separatedata.common.meta.SeparateContext;
 import com.dissdic.separatedata.common.jdbc.connection.SeparateDataConnection;
 
 import java.io.PrintWriter;
@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 
 public class SeparateDataDataSource extends AbstractDataSource implements AutoCloseable {
 
-    private ExpressionToDataBaseMappingConfig separateDataConfig;
+    private SeparateContext separateContext;
 
-    public SeparateDataDataSource(ExpressionToDataBaseMappingConfig separateDataConfig){
-        this.separateDataConfig = separateDataConfig;
+    public SeparateDataDataSource(SeparateContext separateContext){
+        this.separateContext = separateContext;
     }
 
     @Override

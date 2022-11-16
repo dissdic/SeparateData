@@ -9,7 +9,7 @@ import java.util.concurrent.Executor;
 
 public class SeparateDataConnection implements Connection {
 
-    private Connection connection;
+    private Sepa connection;
 
     public SeparateDataConnection(Connection conn){
         this.connection = conn;

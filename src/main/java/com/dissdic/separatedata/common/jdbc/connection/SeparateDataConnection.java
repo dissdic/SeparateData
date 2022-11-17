@@ -25,6 +25,12 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     private boolean closed = false;
 
+    private boolean readOnly = false;
+
+    private String catalog;
+
+    private String schema;
+
     public SeparateDataConnection(){
         InvocationHandler handler = Optional.ofNullable(ContextHolder.getConnectionManagerHandler()).orElse((proxy, method, args) -> method.invoke(new SeparateConnectionManager(),args));
         connectionManager = (ConnectionManager)newProxyInstance(this.getClass().getClassLoader(),new Class[]{ConnectionManager.class},handler);
@@ -41,7 +47,8 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
     }
 
     @Override
-    public void setAutoCommit(boolean autoCommit) throws SQLException {
+    public void setAutoCommit(boolean autoCommit) throws SQLException {\
+        this.autoCommit = autoCommit;
         connectionManager.setAutoCommit(autoCommit);
     }
 
@@ -62,6 +69,7 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public void close() throws SQLException {
+        this.closed = true;
         connectionManager.close();
     }
 
@@ -72,27 +80,28 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public DatabaseMetaData getMetaData() throws SQLException {
-        return connection.getMetaData();
+        return connectionManager.getFirstConnection().getMetaData();
     }
 
     @Override
     public void setReadOnly(boolean readOnly) throws SQLException {
-        connection.setReadOnly(readOnly);
+        this.readOnly = readOnly;
+        connectionManager.setReadOnly(readOnly);
     }
 
     @Override
     public boolean isReadOnly() throws SQLException {
-        return connection.isReadOnly();
+        return this.readOnly;
     }
 
     @Override
     public void setCatalog(String catalog) throws SQLException {
-        connection.setCatalog(catalog);
+        this.catalog = catalog;
     }
 
     @Override
     public String getCatalog() throws SQLException {
-        return connection.getCatalog();
+        return this.catalog;
     }
 
     @Override

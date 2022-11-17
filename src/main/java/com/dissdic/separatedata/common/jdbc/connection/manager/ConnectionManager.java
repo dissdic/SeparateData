@@ -17,4 +17,8 @@ public interface ConnectionManager {
     public void rollback() throws SQLException;
 
     public void close() throws SQLException;
+
+    public Connection getFirstConnection() throws SQLException;
+
+    public void setReadOnly(boolean readOnly) throws SQLException;
 }

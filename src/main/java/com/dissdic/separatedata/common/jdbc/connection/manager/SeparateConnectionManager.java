@@ -1,5 +1,7 @@
 package com.dissdic.separatedata.common.jdbc.connection.manager;
 
+import com.dissdic.separatedata.common.context.ContextHolder;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
@@ -51,6 +53,11 @@ public class SeparateConnectionManager implements ConnectionManager{
         for (Connection connection : connectionMap.values()){
             connection.close();
         }
+    }
+
+    @Override
+    public Connection getFirstConnection() throws SQLException{
+        return ContextHolder.getContext().getDataSource().values().iterator().next().getConnection();
     }
 
     @Override

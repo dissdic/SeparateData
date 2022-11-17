@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SeparateConnectionManager implements ConnectionManager,AutoCloseable{
+public class SeparateConnectionManager implements ConnectionManager{
 
     private ConcurrentHashMap<String,Connection> connectionMap;
 
@@ -32,10 +32,25 @@ public class SeparateConnectionManager implements ConnectionManager,AutoCloseabl
         }
     }
 
+    @Override
+    public void commit() throws SQLException {
+        for (Connection connection : connectionMap.values()) {
+            connection.commit();
+        }
+    }
 
     @Override
-    public void close() throws Exception {
+    public void rollback() throws SQLException{
+        for (Connection connection : connectionMap.values()) {
+            connection.rollback();
+        }
+    }
 
+    @Override
+    public void close() throws SQLException {
+        for (Connection connection : connectionMap.values()){
+            connection.close();
+        }
     }
 
     @Override

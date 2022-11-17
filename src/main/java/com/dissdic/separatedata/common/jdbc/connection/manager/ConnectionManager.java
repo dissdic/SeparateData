@@ -11,4 +11,10 @@ public interface ConnectionManager {
     public List<Connection> getConnections();
 
     public void setAutoCommit(boolean autoCommit) throws SQLException;
+
+    public void commit() throws SQLException;
+
+    public void rollback() throws SQLException;
+
+    public void close() throws SQLException;
 }

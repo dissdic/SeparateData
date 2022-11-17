@@ -23,6 +23,8 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     private boolean autoCommit = true;
 
+    private boolean closed = false;
+
     public SeparateDataConnection(){
         InvocationHandler handler = Optional.ofNullable(ContextHolder.getConnectionManagerHandler()).orElse((proxy, method, args) -> method.invoke(new SeparateConnectionManager(),args));
         connectionManager = (ConnectionManager)newProxyInstance(this.getClass().getClassLoader(),new Class[]{ConnectionManager.class},handler);
@@ -50,22 +52,22 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public void commit() throws SQLException {
-        connection.commit();
+        connectionManager.commit();
     }
 
     @Override
     public void rollback() throws SQLException {
-        connection.rollback();
+        connectionManager.rollback();
     }
 
     @Override
     public void close() throws SQLException {
-        connection.close();
+        connectionManager.close();
     }
 
     @Override
     public boolean isClosed() throws SQLException {
-        return connection.isClosed();
+        return this.closed;
     }
 
     @Override

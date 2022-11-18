@@ -21,4 +21,6 @@ public interface ConnectionManager {
     public Connection getFirstConnection() throws SQLException;
 
     public void setReadOnly(boolean readOnly) throws SQLException;
+
+    public void setTransactionIsolation(int level) throws SQLException;
 }

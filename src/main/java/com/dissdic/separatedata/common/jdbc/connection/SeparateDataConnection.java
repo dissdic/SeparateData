@@ -31,6 +31,8 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     private String schema;
 
+    private int isolationLevel;
+
     public SeparateDataConnection(){
         InvocationHandler handler = Optional.ofNullable(ContextHolder.getConnectionManagerHandler()).orElse((proxy, method, args) -> method.invoke(new SeparateConnectionManager(),args));
         connectionManager = (ConnectionManager)newProxyInstance(this.getClass().getClassLoader(),new Class[]{ConnectionManager.class},handler);
@@ -47,7 +49,7 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
     }
 
     @Override
-    public void setAutoCommit(boolean autoCommit) throws SQLException {\
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
         this.autoCommit = autoCommit;
         connectionManager.setAutoCommit(autoCommit);
     }
@@ -106,12 +108,13 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public void setTransactionIsolation(int level) throws SQLException {
-        connection.setTransactionIsolation(level);
+        this.isolationLevel = level;
+        connectionManager.setTransactionIsolation(level);
     }
 
     @Override
     public int getTransactionIsolation() throws SQLException {
-        return connection.getTransactionIsolation();
+        return this.isolationLevel;
     }
 
     @Override
@@ -266,12 +269,12 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public void setSchema(String schema) throws SQLException {
-        connection.setSchema(schema);
+        this.schema = schema;
     }
 
     @Override
     public String getSchema() throws SQLException {
-        return connection.getSchema();
+        return this.schema;
     }
 
     @Override

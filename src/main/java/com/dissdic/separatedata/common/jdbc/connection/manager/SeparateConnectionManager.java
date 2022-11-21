@@ -1,12 +1,14 @@
 package com.dissdic.separatedata.common.jdbc.connection.manager;
 
 import com.dissdic.separatedata.common.context.ContextHolder;
+import com.dissdic.separatedata.common.exception.SeparateDataSQLWarning;
 import com.dissdic.separatedata.common.operation.ConnectionFunction;
 import com.dissdic.separatedata.common.operation.ConnectionOperation;
 import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -75,6 +77,24 @@ public class SeparateConnectionManager implements ConnectionManager{
     public void setTransactionIsolation(int level) throws SQLException {
         operateConnection((conn,a)->conn.setTransactionIsolation((int)a), Connection::getTransactionIsolation,level);
         methodForInvoke.offer((conn,a)->conn.setTransactionIsolation(level));
+    }
+
+    @Override
+    public SQLWarning getWarnings() throws SQLException {
+        return new SeparateDataSQLWarning(this.getConnections());
+    }
+
+    @Override
+    public void clearWarnings() throws SQLException {
+        for (Connection connection : this.getConnections()) {
+            connection.clearWarnings();
+        }
+    }
+
+    @Override
+    public void setHoldability(int holdability) throws SQLException {
+        operateConnection((conn,a)->conn.setHoldability((int)a), Connection::getHoldability,holdability);
+        methodForInvoke.offer((conn,a)->conn.setHoldability(holdability));
     }
 
     @Override

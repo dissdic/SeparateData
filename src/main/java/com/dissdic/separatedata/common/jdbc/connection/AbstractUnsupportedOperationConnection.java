@@ -6,6 +6,7 @@ import com.dissdic.separatedata.common.exception.UnSupportedOperationException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 //列出不支持的接口
 public abstract class AbstractUnsupportedOperationConnection implements Connection {
@@ -30,6 +31,14 @@ public abstract class AbstractUnsupportedOperationConnection implements Connecti
         throw new UnSupportedOperationException("nativeSQL");
     }
 
+    @Override
+    public Map<String, Class<?>> getTypeMap() throws SQLException {
+        throw new UnSupportedOperationException("getTypeMap");
+    }
 
+    @Override
+    public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
+        throw new UnSupportedOperationException("setTypeMap");
+    }
 
 }

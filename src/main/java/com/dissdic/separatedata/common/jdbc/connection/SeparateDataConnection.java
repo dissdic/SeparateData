@@ -33,6 +33,8 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     private int isolationLevel;
 
+    private int holdability = ResultSet.CLOSE_CURSORS_AT_COMMIT;
+
     public SeparateDataConnection(){
         InvocationHandler handler = Optional.ofNullable(ContextHolder.getConnectionManagerHandler()).orElse((proxy, method, args) -> method.invoke(new SeparateConnectionManager(),args));
         connectionManager = (ConnectionManager)newProxyInstance(this.getClass().getClassLoader(),new Class[]{ConnectionManager.class},handler);
@@ -119,12 +121,12 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public SQLWarning getWarnings() throws SQLException {
-        return connection.getWarnings();
+        return connectionManager.getWarnings();
     }
 
     @Override
     public void clearWarnings() throws SQLException {
-        connection.clearWarnings();
+        connectionManager.clearWarnings();
     }
 
     @Override
@@ -143,23 +145,14 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
     }
 
     @Override
-    public Map<String, Class<?>> getTypeMap() throws SQLException {
-        return connection.getTypeMap();
-    }
-
-    @Override
-    public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
-        connection.setTypeMap(map);
-    }
-
-    @Override
     public void setHoldability(int holdability) throws SQLException {
-        connection.setHoldability(holdability);
+        this.holdability = holdability;
+        connectionManager.setHoldability(holdability);
     }
 
     @Override
     public int getHoldability() throws SQLException {
-        return connection.getHoldability();
+        return this.holdability;
     }
 
     @Override

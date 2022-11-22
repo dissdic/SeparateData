@@ -2,6 +2,8 @@ package com.dissdic.separatedata.common.jdbc.connection.manager;
 
 import com.dissdic.separatedata.common.context.ContextHolder;
 import com.dissdic.separatedata.common.exception.SeparateDataSQLWarning;
+import com.dissdic.separatedata.common.jdbc.transaction.SeparateDataSavepoint;
+import com.dissdic.separatedata.common.jdbc.transaction.SeparateDataSavepointManager;
 import com.dissdic.separatedata.common.operation.ConnectionFunction;
 import com.dissdic.separatedata.common.operation.ConnectionOperation;
 import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
@@ -9,6 +11,7 @@ import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.Savepoint;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -18,7 +21,6 @@ public class SeparateConnectionManager implements ConnectionManager{
 
     private LinkedList<ConnectionOperation<Object>> methodForInvoke = new LinkedList<>();
     private ConcurrentHashMap<String,Connection> connectionMap;
-
 
     private <T> void operateConnection(ConnectionOperation<Object> operation, ConnectionFunction<Connection,T> func, T t) throws SQLException{
 
@@ -95,6 +97,44 @@ public class SeparateConnectionManager implements ConnectionManager{
     public void setHoldability(int holdability) throws SQLException {
         operateConnection((conn,a)->conn.setHoldability((int)a), Connection::getHoldability,holdability);
         methodForInvoke.offer((conn,a)->conn.setHoldability(holdability));
+    }
+
+    @Override
+    public Savepoint setSavepoint() throws SQLException {
+        SeparateDataSavepoint savepoint = new SeparateDataSavepoint();
+        for (Connection connection : getConnections()) {
+            SeparateDataSavepointManager.setSavepoint(connection,savepoint.getSavepointName());
+        }
+        methodForInvoke.offer((conn,a)->SeparateDataSavepointManager.setSavepoint(conn,savepoint.getSavepointName()));
+        return savepoint;
+    }
+
+    @Override
+    public Savepoint setSavepoint(String name) throws SQLException {
+        SeparateDataSavepoint savepoint = new SeparateDataSavepoint(name);
+        for (Connection connection : getConnections()) {
+            SeparateDataSavepointManager.setSavepoint(connection,savepoint.getSavepointName());
+        }
+        methodForInvoke.offer((conn,a)->SeparateDataSavepointManager.setSavepoint(conn,name));
+        return savepoint;
+    }
+
+    @Override
+    public void rollback(Savepoint savepoint) throws SQLException {
+        String name = savepoint.getSavepointName();
+        for (Connection connection : getConnections()) {
+            SeparateDataSavepointManager.rollback(connection,name);
+        }
+        methodForInvoke.offer((conn,a)->SeparateDataSavepointManager.rollback(conn,name));
+    }
+
+    @Override
+    public void releaseSavepoint(Savepoint savepoint) throws SQLException {
+        String name = savepoint.getSavepointName();
+        for(Connection connection:getConnections()){
+            SeparateDataSavepointManager.releaseSavepoint(connection,name);
+        }
+        methodForInvoke.offer((conn,a)->SeparateDataSavepointManager.releaseSavepoint(conn,name));
     }
 
     @Override

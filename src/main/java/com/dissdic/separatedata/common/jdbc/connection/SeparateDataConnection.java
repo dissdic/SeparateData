@@ -157,22 +157,22 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public Savepoint setSavepoint() throws SQLException {
-        return connection.setSavepoint();
+        return connectionManager.setSavepoint();
     }
 
     @Override
     public Savepoint setSavepoint(String name) throws SQLException {
-        return connection.setSavepoint(name);
+        return connectionManager.setSavepoint(name);
     }
 
     @Override
     public void rollback(Savepoint savepoint) throws SQLException {
-        connection.rollback();
+        connectionManager.rollback(savepoint);
     }
 
     @Override
     public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-        connection.releaseSavepoint(savepoint);
+        connectionManager.releaseSavepoint(savepoint);
     }
 
     @Override
@@ -206,58 +206,8 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
     }
 
     @Override
-    public Clob createClob() throws SQLException {
-        return connection.createClob();
-    }
-
-    @Override
-    public Blob createBlob() throws SQLException {
-        return connection.createBlob();
-    }
-
-    @Override
-    public NClob createNClob() throws SQLException {
-        return connection.createNClob();
-    }
-
-    @Override
-    public SQLXML createSQLXML() throws SQLException {
-        return connection.createSQLXML();
-    }
-
-    @Override
     public boolean isValid(int timeout) throws SQLException {
         return connection.isValid(timeout);
-    }
-
-    @Override
-    public void setClientInfo(String name, String value) throws SQLClientInfoException {
-        connection.setClientInfo(name,value);
-    }
-
-    @Override
-    public void setClientInfo(Properties properties) throws SQLClientInfoException {
-        connection.setClientInfo(properties);
-    }
-
-    @Override
-    public String getClientInfo(String name) throws SQLException {
-        return connection.getClientInfo(name);
-    }
-
-    @Override
-    public Properties getClientInfo() throws SQLException {
-        return connection.getClientInfo();
-    }
-
-    @Override
-    public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
-        return connection.createArrayOf(typeName,elements);
-    }
-
-    @Override
-    public Struct createStruct(String typeName, Object[] attributes) throws SQLException {
-        return connection.createStruct(typeName,attributes);
     }
 
     @Override

@@ -6,5 +6,4 @@ import java.sql.PreparedStatement;
 
 public abstract class AbstractPreparedStatement implements PreparedStatement{
 
-
 }

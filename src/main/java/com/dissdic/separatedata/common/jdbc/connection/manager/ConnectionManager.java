@@ -3,6 +3,7 @@ package com.dissdic.separatedata.common.jdbc.connection.manager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.Savepoint;
 import java.util.List;
 import java.util.Map;
 
@@ -32,4 +33,11 @@ public interface ConnectionManager {
 
     public void setHoldability(int holdability) throws SQLException;
 
+    public Savepoint setSavepoint() throws SQLException;
+
+    public Savepoint setSavepoint(String name) throws SQLException;
+
+    public void rollback(Savepoint savepoint) throws SQLException;
+
+    public void releaseSavepoint(Savepoint savepoint) throws SQLException;
 }

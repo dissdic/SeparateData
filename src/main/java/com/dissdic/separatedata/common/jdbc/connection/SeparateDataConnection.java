@@ -207,7 +207,7 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
 
     @Override
     public boolean isValid(int timeout) throws SQLException {
-        return connection.isValid(timeout);
+        return connectionManager.isValid(timeout);
     }
 
     @Override
@@ -218,30 +218,5 @@ public class SeparateDataConnection extends AbstractUnsupportedOperationConnecti
     @Override
     public String getSchema() throws SQLException {
         return this.schema;
-    }
-
-    @Override
-    public void abort(Executor executor) throws SQLException {
-        connection.abort(executor);
-    }
-
-    @Override
-    public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
-        connection.setNetworkTimeout(executor,milliseconds);
-    }
-
-    @Override
-    public int getNetworkTimeout() throws SQLException {
-        return connection.getNetworkTimeout();
-    }
-
-    @Override
-    public <T> T unwrap(Class<T> iface) throws SQLException {
-        return connection.unwrap(iface);
-    }
-
-    @Override
-    public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return connection.isWrapperFor(iface);
     }
 }

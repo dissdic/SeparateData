@@ -2,13 +2,15 @@ package com.dissdic.separatedata.common.jdbc.connection;
 
 import com.dissdic.separatedata.common.context.ContextHolder;
 import com.dissdic.separatedata.common.exception.UnSupportedOperationException;
+import com.dissdic.separatedata.common.jdbc.adapter.SeparateWrapperAdapter;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 //列出不支持的接口
-public abstract class AbstractUnsupportedOperationConnection implements Connection {
+public abstract class AbstractUnsupportedOperationConnection extends SeparateWrapperAdapter {
 
     @Override
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
@@ -88,6 +90,21 @@ public abstract class AbstractUnsupportedOperationConnection implements Connecti
     @Override
     public Struct createStruct(String typeName, Object[] attributes) throws SQLException {
         throw new UnSupportedOperationException("createStruct");
+    }
+
+    @Override
+    public void abort(Executor executor) throws SQLException {
+        throw new UnSupportedOperationException("abort");
+    }
+
+    @Override
+    public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
+        throw new UnSupportedOperationException("setNetworkTimeout");
+    }
+
+    @Override
+    public int getNetworkTimeout() throws SQLException {
+        throw new UnSupportedOperationException("getNetworkTimeout");
     }
 
 }

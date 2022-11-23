@@ -14,16 +14,22 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <postgresql.version>42.3.3</postgresql.version>
+        <antlr.version>4.11.1</antlr.version>
+        <hikari.version>4.0.3</hikari.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>${antlr.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>4.0.3</version>
+            <version>${hikari.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -47,6 +53,30 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr.version}</version>
+                <executions>
+                    <execution>
+                        <id>antlr</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <libDirectory>src/main/resources/antlr4/</libDirectory>
+                            <listener>false</listener>
+                            <visitor>true</visitor>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>src/test/java</outputDirectory>
+                    <listener>true</listener>
+                    <treatWarningsAsErrors>true</treatWarningsAsErrors>
+                </configuration>
+
+            </plugin>
         </plugins>
     </build>
 

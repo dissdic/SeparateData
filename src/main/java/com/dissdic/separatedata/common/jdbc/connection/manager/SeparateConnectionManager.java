@@ -138,6 +138,16 @@ public class SeparateConnectionManager implements ConnectionManager{
     }
 
     @Override
+    public boolean isValid(int timeout) throws SQLException {
+        for (Connection connection : this.getConnections()) {
+            if(!connection.isValid(timeout)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public Connection getConnection(String dataBase) {
         return null;
     }

@@ -40,4 +40,7 @@ public interface ConnectionManager {
     public void rollback(Savepoint savepoint) throws SQLException;
 
     public void releaseSavepoint(Savepoint savepoint) throws SQLException;
+
+    public boolean isValid(int timeout) throws SQLException;
+
 }

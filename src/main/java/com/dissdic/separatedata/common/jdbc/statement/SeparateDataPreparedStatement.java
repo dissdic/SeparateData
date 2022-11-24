@@ -11,7 +11,6 @@ public class SeparateDataPreparedStatement extends AbstractPreparedStatement {
 
 
     public SeparateDataPreparedStatement(Connection connection){
-
     }
 
     public SeparateDataPreparedStatement(Connection connection,String sql){

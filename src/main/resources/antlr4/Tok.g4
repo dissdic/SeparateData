@@ -1,8 +1,16 @@
 grammar Tok;
-tokens {A,B,C}
-stat: S WS+ a 'from' TB;
-a: FN(',' FN)*;
-FN : [a-z]+;
-TB : [a-z]+;
-S  : 'select';
+import Letter;
+tokens {TN}
+
+stat: SL WS+ el+=a WS+ FR WS+ (TN|FN);
+
+
+SL  : 'select' | 'SELECT';
+FR  : 'from' | 'FROM';
 WS : ' ';
+FN : [a-z]+;
+a: FN(',' FN)* | '*';
+
+
+
+

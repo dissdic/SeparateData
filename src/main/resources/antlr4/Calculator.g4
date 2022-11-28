@@ -1,11 +1,25 @@
-grammar Calculator;            // Define a grammar called demo
+grammar Calculator;
 
-parse : prog+ ;              // A program consists of at least one statement
+prog:   stat+ ;
 
-prog : 'Hello' ID            // match keyword hello/Hello followed by an identifier
-    | 'hello' ID
+stat:   expr NEWLINE                # printExpr
+    |   ID '=' expr NEWLINE         # assign
+    |   NEWLINE                     # blank
     ;
 
-ID : [a-z]+ ;               // match lower-case identifiers
+expr:   expr op=('*'|'/') expr      # MulDiv
+    |   expr op=('+'|'-') expr      # AddSub
+    |   INT                         # int
+    |   ID                          # id
+    |   '(' expr ')'                # parens
+    ;
 
-WS : [ \t\n\r]+ -> skip ;   // skip spaces, tabs, newlines, \r (Windows)
+ID  :   [a-zA-Z]+;
+INT :   [0-9]+;
+NEWLINE : '\r'?'\n';
+WS  :   [\t]+ -> skip;
+
+MUL :   '*';
+DIV :   '/';
+ADD :   '+';
+SUB :   '-';

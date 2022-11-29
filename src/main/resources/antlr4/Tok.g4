@@ -1,15 +1,26 @@
 grammar Tok;
-import Letter;
+import Keyword;
 tokens {TN}
 
-stat: SL WS+ el+=a WS+ FR WS+ (TN|FN);
+stat: SELECT WS+ el+=fs[] WS+ FROM WS+ TN;
+
+fs[String[] columns]
+     returns [Map<String,String> values]
+     locals [int col=0]
+  	@init {
+  	$values = new HashMap<String,String>();
+  	}
+  	@after {
+  	if ($values!=null && $values.size()>0) {
+  	System.out.println("values = "+$values);
+  	}
+  	}
+    : FN(',' FN)* | '*'
+    ;
 
 
-SL  : 'select' | 'SELECT';
-FR  : 'from' | 'FROM';
 WS : ' ';
 FN : [a-z]+;
-a: FN(',' FN)* | '*';
 
 
 

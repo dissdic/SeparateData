@@ -8,5 +8,24 @@ OR : O R;
 AS : A S;
 IS : I S;
 NOT : N O T;
-
+NULL : N U L L;
+WHERE : W H E R E;
+GROUP : G R O U P;
+BY : B Y;
+HAVING : H A V I N G;
+SUM : S U M;
+COUNT : C O U N T;
+DISTINCT : D I S T I N C T;
+LEFT : L E F T;
+RIGHT : R I G H T;
+JOIN : J O I N;
+ORDER : O R D E R;
+ASC : A S C;
+DESC : D E S C;
+DELETE : D E L E T E;
+UPDATE : U P D A T E;
+IN : I N;
+ALL : A L L;
+UNION : U N I O N;
+ON : O N;
 

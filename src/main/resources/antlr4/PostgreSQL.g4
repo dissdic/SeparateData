@@ -1,14 +1,17 @@
 grammar PostgreSQL;
-import Keyword,Norm;
+import Expr,Keyword,Norm;
 tokens {OTHER}
-stat: SELECT el+=fields FROM tables ;
 
-fields : tables | ALL;
-tables : tables COMMA tables | tableOrField;
-tableOrField : tableOrField AS tableOrField | ID;
-where : where (AND|OR) where | singlewhere;
-singlewhere : ID (EQ|IS|(IS NOT)|GT|LT|GE|LE|BI|NE) ID;
-WS : [ \t\n\r]+ ->skip;
+select: SELECT el+=fields FROM tables (WHERE where)? (GROUP BY)? (HAVING singlewhere)? ORDER BY ;
+
+fields : tables | STAR;
+tables : tables COMMA tables | table;
+
+where : where (AND|OR) where | '(' where ')'|singlewhere;
+singlewhere : TABLEDOTFIELD (EQ|IS|(IS NOT)|GT|LT|GE|LE|BI|NE) (VALUE|TABLEDOTFIELD);
+
+
+
 
 
 

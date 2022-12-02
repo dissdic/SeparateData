@@ -18,7 +18,6 @@ BI : '<>';
 DOT : '.';
 
 VALUE : INT|('\''|'"') .*? ('\''|'"')|NULL;
-TABLEDOTFIELD : TABLEORFIELD DOT TABLEORFIELD | TABLEORFIELD;
 TABLEORFIELD : ID | '"'ID'"' | '['ID']'|'`'ID'`';
 
 INT : DIGIT+;

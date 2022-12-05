@@ -2,11 +2,16 @@ grammar Expr;
 import Keyword,Norm;
 
 
+join : ((((LEFT|RIGHT|FULL) OUTER?) | INNER) JOIN) table ON where;
 fields : fields COMMA fields | field;
 tables : tables COMMA tables | table;
 values : values ',' values | VALUE;
-table : TABLEORFIELD AS TABLEORFIELD | TABLEORFIELD;
-field : (tabledotfield | TABLEORFIELD) AS TABLEORFIELD | TABLEORFIELD;
+table : static AS static | static;
+field : (tabledotfield | static) AS static | static;
 where : where (AND|OR) where | '(' where ')'| singlewhere;
-singlewhere : (tabledotfield|TABLEORFIELD) (((EQ|IS|(IS NOT)|GT|LT|GE|LE|BI|NE) (VALUE|tabledotfield)) | NOT? IN '('values')');
-tabledotfield : TABLEORFIELD DOT TABLEORFIELD;
+singlewhere : (tabledotfield|static) ((relator (VALUE|tabledotfield|static)) | NOT? IN '('values')');
+tabledotfield : static DOT static;
+relator : EQ|IS|(IS NOT)|GT|LT|GE|LE|BI|NE;
+static : TABLEORFIELD | keyword;
+keyword: ALL|COLLATE|CURRENT_USER|TABLE|PLACING|AND|WINDOW|SOME|TRAILING|THEN|INTO|GRANT|GROUP|CASE|UNIQUE|DEFERRABLE|CURRENT_DATE|DESC|OFFSET|OR|CURRENT_CATALOG|CAST|ANALYZE|REFERENCES|CHECK|AS|LIMIT|CURRENT_TIMESTAMP|RETURNING|FROM|NOT|WHERE|BOTH|LOCALTIMESTAMP|PRIMARY|FOR|INTERSECT|WHEN|ANALYSE|ORDER|ON|CURRENT_ROLE|INITIALLY|SYMMETRIC|LEADING|UNION|IN|CURRENT_TIME|EXCEPT|VARIADIC|END|NULL|USING|CONSTRAINT|DEFAULT|ASYMMETRIC|USER|DISTINCT|ANY|HAVING|LATERAL|FETCH|DO|LOCALTIME|ARRAY|ELSE|FOREIGN|TO|ONLY|WITH|SELECT|CREATE|FALSE|ASC|TRUE|COLUMN|SESSION_USER|IS|BY|INSERT|LEFT|RIGHT|JOIN|OUTER|INNER|FULL;
+

@@ -1,8 +1,10 @@
 grammar Operate;
-import Expr,Keyword,Norm;
+import Keyword,Expr;
 tokens {OTHER}
 
-select: SELECT (fields|STAR) FROM tables (WHERE where)? (GROUP BY fields)? (HAVING where)? (ORDER BY fields (ASC|DESC)?)?;
+select: SELECT (fields|STAR) FROM tables join* (WHERE where)? (GROUP BY fields)? (HAVING where)? (ORDER BY fields (ASC|DESC)?)?;
+
+
 
 
 

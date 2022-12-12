@@ -91,5 +91,6 @@ OUTER : O U T E R;
 INNER : I N N E R;
 FULL : F U L L;
 
-
+//function
+ARRAY_AGG : A R R A Y UL A G G;
 

@@ -1,5 +1,6 @@
 package com.dissdic.separatedata.common.processor.postgresql.impl;
 
+import com.dissdic.separatedata.common.exception.ANTLR4ParserNotMatchException;
 import com.dissdic.separatedata.common.processor.postgresql.OperateBaseListener;
 import com.dissdic.separatedata.common.processor.postgresql.OperateListener;
 import com.dissdic.separatedata.common.processor.postgresql.OperateParser;
@@ -22,14 +23,14 @@ public class OperateListenerImpl extends OperateBaseListener {
 
     @Override
     public void enterSelect(OperateParser.SelectContext ctx) {
-        System.out.println(ctx);
         if(hasError(ctx)){
-            throw
+            throw new ANTLR4ParserNotMatchException();
         }
     }
 
     @Override
     public void enterTable(OperateParser.TableContext ctx) {
+        System.out.println(ctx);
 
     }
 }

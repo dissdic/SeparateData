@@ -17,7 +17,7 @@ public class ANTLRTest {
 
     @Test
     public void testEnter(){
-        String input = "dd name,age from user where id=1 and age>1";
+        String input = "select name,age from user where id=1 and age>1";
         CodePointCharStream stream = CharStreams.fromString(input);
         OperateLexer operateLexer = new OperateLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(operateLexer);

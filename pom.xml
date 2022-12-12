@@ -16,9 +16,17 @@
         <postgresql.version>42.3.3</postgresql.version>
         <antlr.version>4.11.1</antlr.version>
         <hikari.version>4.0.3</hikari.version>
+        <junit.version>5.9.1</junit.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>

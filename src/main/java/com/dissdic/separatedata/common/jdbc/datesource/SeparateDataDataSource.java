@@ -18,53 +18,53 @@ public class SeparateDataDataSource extends AbstractDataSource implements AutoCl
 
     @Override
     public Connection getConnection() throws SQLException {
-        return new SeparateDataConnection(separateDataConfig.getDataSource().getConnection());
+        return null;
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return new SeparateDataConnection(separateDataConfig.getDataSource().getConnection());
+        return null;
     }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
 
-        T t = separateDataConfig.getDataSource().unwrap(iface);
-        if(t instanceof Connection){
-            return (T)new SeparateDataConnection(t);
-        }else{
-            return t;
-        }
+//        T t = separateDataConfig.getDataSource().unwrap(iface);
+//        if(t instanceof Connection){
+//            return (T)new SeparateDataConnection(t);
+//        }else{
+//            return t;
+//        }
+        return null;
     }
 
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return separateDataConfig.getDataSource().isWrapperFor(iface);
+        return false;
     }
 
     @Override
     public PrintWriter getLogWriter() throws SQLException {
-        return separateDataConfig.getDataSource().getLogWriter();
+        return null;
     }
 
     @Override
     public void setLogWriter(PrintWriter out) throws SQLException {
-        separateDataConfig.getDataSource().setLogWriter(out);
+
     }
 
     @Override
     public void setLoginTimeout(int seconds) throws SQLException {
-        separateDataConfig.getDataSource().setLoginTimeout(seconds);
     }
 
     @Override
     public int getLoginTimeout() throws SQLException {
-        return separateDataConfig.getDataSource().getLoginTimeout();
+        return 1;
     }
 
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        return separateDataConfig.getDataSource().getParentLogger();
+        return null;
     }
 
     @Override

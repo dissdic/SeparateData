@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-public class SelectSelectListenerImpl extends SelectBaseListener {
+public class SelectSelectFieldsListenerImpl extends SelectBaseListener {
 
     private SeparateDataField[] queryFields;
 

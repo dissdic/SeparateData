@@ -131,3 +131,4 @@ GROUPING : G R O U P I N G;
 
 SETS : S E T S;
 CUBE : C U B E;
+ROLLUP : R O L L U P;

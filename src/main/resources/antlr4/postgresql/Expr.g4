@@ -1,10 +1,12 @@
 grammar Expr;
 import Keyword,Norm;
 
-join : ((((LEFT|RIGHT|FULL) OUTER?) | INNER) JOIN) tablewithoutalias ON where;
+join : ((((LEFT|RIGHT|FULL) OUTER?) | INNER) JOIN) jointable ON joinwhere;
 fields : fields COMMA fields | field | groupfunctionexpr | cube | rollup | groupingsets;
 tables : tables COMMA tables | table;
 values : values ',' values | Value;
+jointable : table;
+joinwhere : where;
 field : fieldwithalias | fieldwithoutalias;
 table : tablewithalias | tablewithoutalias;
 tablewithalias : tablewithoutalias AS alias | tablewithoutalias alias;

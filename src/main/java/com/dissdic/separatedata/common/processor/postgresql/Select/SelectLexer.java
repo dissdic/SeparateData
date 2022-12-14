@@ -1,5 +1,5 @@
 // Generated from java-escape by ANTLR 4.11.1
-package com.dissdic.separatedata.common.processor.postgresql.Select.select;
+package com.dissdic.separatedata.common.processor.postgresql.Select;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

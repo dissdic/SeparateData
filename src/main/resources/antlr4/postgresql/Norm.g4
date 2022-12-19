@@ -6,7 +6,7 @@ fragment CHARACTER : [a-zA-Z];
 fragment DIGIT_AND_CHARACTER : [0-9a-zA-Z];
 
 
-Value : INT|('\''|'"') .*? ('\''|'"')|NULL;
+Value : INT|('\''|'"') .*? ('\''|'"')|NULL | TRUE | FALSE;
 TABLEORFIELD : ID | '"'ID'"' | '['ID']'|'`'ID'`';
 
 INT : DIGIT+;

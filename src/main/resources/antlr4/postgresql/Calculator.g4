@@ -1,25 +1,13 @@
 grammar Calculator;
+import Basic;
 
 prog:   stat+ ;
 
-stat:   expr NEWLINE                # printExpr
-    |   ID '=' expr NEWLINE         # assign
-    |   NEWLINE                     # blank
+stat:   condition                        # printExpr
+    |   ID '=' condition         # assign
     ;
 
-expr:   expr op=('*'|'/') expr      # MulDiv
-    |   expr op=('+'|'-') expr      # AddSub
-    |   INT                         # int
-    |   ID                          # id
-    |   '(' expr ')'                # parens
+condition:   condition op=('+'|'-') condition      # AddSub
+             |   field                         # int
+    |   '(' condition ')'                # parents
     ;
-
-ID  :   [a-zA-Z]+;
-INT :   [0-9]+;
-NEWLINE : '\r'?'\n';
-WS  :   [\t]+ -> skip;
-
-MUL :   '*';
-DIV :   '/';
-ADD :   '+';
-SUB :   '-';

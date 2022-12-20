@@ -5,6 +5,3 @@ select: SELECT queryfields FROM tables join* (WHERE where)? (GROUP BY fields)? (
 
 
 
-
-
-

@@ -132,3 +132,8 @@ GROUPING : G R O U P I N G;
 SETS : S E T S;
 CUBE : C U B E;
 ROLLUP : R O L L U P;
+
+EXTRACT : E X T R A C T;
+LIKE : L I K E;
+BETWEEN : B E T W E E N;
+

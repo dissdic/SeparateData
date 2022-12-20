@@ -22,7 +22,10 @@ STRICTRIGHT : '>>';
 NOTBEYONDLEFT : '&>';
 NOTBEYONDRIGHT : '&<';
 
+LB : '(';
+RB : ')';
 
+SQ : '\'';
 
 
 

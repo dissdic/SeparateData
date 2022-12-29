@@ -1,5 +1,5 @@
 grammar Function;
-import Expr;
+import Basic;
 
 extract : EXTRACT ;
 like :field NOT? LIKE Value;

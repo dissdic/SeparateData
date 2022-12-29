@@ -2,8 +2,8 @@ lexer grammar Symbol;
 
 UL : '_';
 COMMA : ',';
-MINUS : '-';
-STAR : '*';
+SUB : '-';
+SR : '*';
 EQ : '=';
 GT : '>';
 LT : '<';
@@ -13,19 +13,25 @@ NE : '!=';
 BI : '<>';
 DOT : '.';
 PLUS : '+';
-ADJACENT : '-|-';
-OVERLAP : '&&';
-INCLUDE : '@>';
-INCLUDED : '@<';
-STRICTLEFT : '<<';
-STRICTRIGHT : '>>';
-NOTBEYONDLEFT : '&>';
-NOTBEYONDRIGHT : '&<';
-
+ADT : '-|-';
+OVP : '&&';
+INC : '@>';
+IND : '@<';
+SLT : '<<';
+SRT : '>>';
+NLT : '&>';
+NRT : '&<';
 LB : '(';
 RB : ')';
-
 SQ : '\'';
+PC : '%';
+DS : '/';
+TUB : '|';
+MG : '&';
+IX : '^';
+
+
+
 
 
 

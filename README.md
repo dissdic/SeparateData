@@ -92,8 +92,9 @@ _解析结果_
 **总结**
 - 垂直分表下，查询字段和条件字段都需要考虑在内
 - 需要用关联查询获取需要的查询字段值
-## 分表
+## 分库
 *postgresql需要dblink或者Foreign Table才可以跨库查询，具体参阅[dblink](http://www.postgres.cn/docs/12/dblink.html) 和 [postgres-fdw](http://www.postgres.cn/docs/12/postgres-fdw.html)*
+_我们采用postgresql-fdw生成跨库查询的SQL_
 ### 水平分库
 
 #### 概念

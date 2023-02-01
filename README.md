@@ -95,24 +95,50 @@ _解析结果_
 ## 分库
 *postgresql需要dblink或者Foreign Table才可以跨库查询，具体参阅[dblink](http://www.postgres.cn/docs/12/dblink.html) 和 [postgres-fdw](http://www.postgres.cn/docs/12/postgres-fdw.html)*
 _我们采用postgresql-fdw生成跨库查询的SQL_
+
+###怎么用postgresql-fdw?
+* 首先安装该扩展
+```sql
+CREATE EXTENSION postgres_fdw;
+```
+* 创建一个外部服务器
+```sql
+CREATE SERVER foreign_server
+        FOREIGN DATA WRAPPER postgres_fdw
+        OPTIONS (host '192.83.123.89', port '5432', dbname 'foreign_db');
+```
+* 定义一个用户映射来标识在远程服务器上使用哪个角色
+```sql
+CREATE USER MAPPING FOR local_user
+        SERVER foreign_server
+        OPTIONS (user 'foreign_user', password 'password');
+```
+* 创建外部表
+```sql
+--自定义的方式
+CREATE FOREIGN TABLE foreign_table (
+        id integer NOT NULL,
+        data text
+)
+        SERVER foreign_server
+        OPTIONS (schema_name 'some_schema', table_name 'some_table');
+--导入的方式
+IMPORT FOREIGN SCHEMA public LIMIT TO (test_table)
+    FROM SERVER foreign_server INTO public;
+```
+### 垂直分库
+####概念
+>将某些表移到另外的库里，或者说将表分散存储在不同的数据库里
+>得益于postgresql-fdw的支持，实际上无论是查询还是更新都是无感知的
+>不需要切换数据库，也不需要对原SQL做任何修改
 ### 水平分库
 
 #### 概念
 >将同一张表的数据按照某种规则分到不同的库里面，表名一致，字段一致
-
-#### **Rule**
-* mode = 1
-* mainDataBase = db
-* subDataBasesAndTables = {"db1":["table1","table2"],"db2":["table3","table4"]}
-#### **SQL**
->select * from table1
-
-_解析结果_
-* 切换当前库到db1
-* select * from table1
-* 切换当前库到db
-
-
+>同理，得益于postgres-fdw,单表分库，不同库内的表的表明应该不一样
+>否则无法成功的将外部的表链接到当前库内。
+>比如一张user表，划分成user1,user2,分别存在a库，b库，但由于跨库的存在
+>其实解析过程和水平分表完全一致。可忽略掉不同库的存在
 
 
 

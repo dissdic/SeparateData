@@ -12,4 +12,3 @@ ID  : (DIGIT_AND_CHARACTER|UL)+;
 
 WS : [ \t\n\r]+ ->skip;
 OTHER : . ->skip;
-

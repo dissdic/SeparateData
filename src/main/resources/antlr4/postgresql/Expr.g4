@@ -1,31 +1,12 @@
 grammar Expr;
-import Basic;
+import Operate;
 
-join : ((((LEFT|RIGHT|FULL) OUTER?) | INNER) JOIN) jointable (ON joinwhere | USING LB usingfields RB);
+join : ((((LEFT|RIGHT|FULL) OUTER?) | INNER | CROSS) JOIN) table (ON where | USING LB fields RB);
 
-queryfields : fields|SR;
+queryfields : queryfields COMMA queryfields | DISTINCT? compute (AS? alias)?;
 
-fields : fields COMMA fields | field | groupfunctionexpr | cube | rollup | groupingsets;
+where : where relation where | '(' where ')'| condition;
 
-tables : tables COMMA tables | table;
 
-usingfields : usingfields COMMA usingfields | fieldwithoutalias;
-
-jointable : table;
-
-joinwhere : where;
-
-where : where relation where | '(' where ')'| singlewhere;
-
-singlewhere : field ((relator fieldorvalue) | NOT? IN '('values')');
-
-//聚集函数不可出现在where子句中
-groupfunctionexpr : groupfunctionname '('(.*? field)*')';
-
-groupingsets : GROUPING SETS '('(.*? field)*')';
-
-cube : CUBE '('(.*? field)*')';
-
-rollup : ROLLUP '('(.*? field)*')';
 
 

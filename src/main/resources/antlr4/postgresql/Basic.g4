@@ -2,19 +2,17 @@ grammar Basic;
 import Keyword,Norm;
 
 
-field : fieldwithalias | fieldwithoutalias;
+field : tabledotfield | name | SR;
 
 table : tablewithalias | tablewithoutalias;
 
+tables : tables COMMA tables | table;
+
+fields : fields COMMA fields | field;
+
 tablewithalias : tablewithoutalias AS alias | tablewithoutalias alias;
 
-fieldwithalias : fieldwithoutalias AS alias | fieldwithoutalias alias;
-
 tablewithoutalias : name;
-
-fieldwithoutalias : tabledotfield | name;
-
-fieldorvalue : fieldwithoutalias | Value;
 
 name : static;
 
@@ -22,7 +20,7 @@ alias : static;
 
 nameoralias : static;
 
-static : TABLEORFIELD | keyword | groupfunctionname;
+static : WORDS | keyword | groupfunctionname;
 
 keyword: ALL|COLLATE|CURRENT_USER|TABLE|PLACING|AND|WINDOW|SOME|TRAILING|THEN|INTO|GRANT|GROUP|CASE|UNIQUE|DEFERRABLE|CURRENT_DATE|DESC|OFFSET|OR|CURRENT_CATALOG|CAST|ANALYZE|REFERENCES|CHECK|AS|LIMIT|CURRENT_TIMESTAMP|RETURNING|FROM|NOT|WHERE|BOTH|LOCALTIMESTAMP|PRIMARY|FOR|INTERSECT|WHEN|ANALYSE|ORDER|ON|CURRENT_ROLE|INITIALLY|SYMMETRIC|LEADING|UNION|IN|CURRENT_TIME|EXCEPT|VARIADIC|END|NULL|USING|CONSTRAINT|DEFAULT|ASYMMETRIC|USER|DISTINCT|ANY|HAVING|LATERAL|FETCH|DO|LOCALTIME|ARRAY|ELSE|FOREIGN|TO|ONLY|WITH|SELECT|CREATE|FALSE|ASC|TRUE|COLUMN|SESSION_USER|IS|BY|INSERT|LEFT|RIGHT|JOIN|OUTER|INNER|FULL|SETS|CUBE|ROLLUP|EXTRACT|LIKE|BETWEEN;
 
@@ -30,10 +28,10 @@ groupfunctionname : ARRAY_AGG | AVG | BIT_AND | BIT_OR | BOOL_AND | BOOL_OR | CO
 
 values : values COMMA values | Value;
 
-Value : INT|'\'' .*? '\''|'"'.*?'"'|NULL|TRUE|FALSE;
-
-tabledotfield : nameoralias DOT field;
+tabledotfield : nameoralias DOT (name | SR);
 
 relator : EQ|IS|(IS NOT)|GT|LT|GE|LE|BI|NE|;
 
 relation : AND|OR;
+
+Value : INT|'\'' .*? '\''|'"'.*?'"'|NULL|TRUE|FALSE;

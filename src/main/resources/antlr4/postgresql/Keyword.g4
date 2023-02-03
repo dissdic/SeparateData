@@ -90,6 +90,7 @@ JOIN : J O I N;
 OUTER : O U T E R;
 INNER : I N N E R;
 FULL : F U L L;
+CROSS : C R O S S;
 
 //grouping function
 ARRAY_AGG : A R R A Y UL A G G;
@@ -136,4 +137,5 @@ ROLLUP : R O L L U P;
 EXTRACT : E X T R A C T;
 LIKE : L I K E;
 BETWEEN : B E T W E E N;
+
 

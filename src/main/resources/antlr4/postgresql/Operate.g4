@@ -9,10 +9,10 @@ in : compute NOT? IN LB values RB;
 
 condition : compute relator compute | in | between | like;
 
-function : WORDS LB ( compute | .)*? RB;
+function : static LB ( compute | .)*? RB;
 
 compute : compute (PLUS|SUB|SR|DS|TUB|MG|PC|IX) compute | function | Value
-    | field | SR | LB compute RB
+    | field | LB compute RB
     ;
 
 

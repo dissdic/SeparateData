@@ -1,7 +1,7 @@
 grammar Select;
 import Keyword,Expr;
 
-select: SELECT queryfields FROM tables join* (WHERE where)? (GROUP BY fields)? (HAVING where)? (ORDER BY (field (ASC|DESC)?)*)? (LIMIT INT(COMMA INT)?)?;
+select: SELECT queryfields FROM tables join* (WHERE where)? (GROUP BY groupbyfields)? (HAVING where)? (ORDER BY orderbyfields)? (LIMIT Value(COMMA Value)?)?;
 
 
 

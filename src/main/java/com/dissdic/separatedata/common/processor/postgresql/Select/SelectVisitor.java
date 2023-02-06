@@ -29,35 +29,59 @@ public interface SelectVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitQueryfields(SelectParser.QueryfieldsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#fields}.
+	 * Visit a parse tree produced by {@link SelectParser#where}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFields(SelectParser.FieldsContext ctx);
+	T visitWhere(SelectParser.WhereContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#tables}.
+	 * Visit a parse tree produced by {@link SelectParser#orderbyfields}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTables(SelectParser.TablesContext ctx);
+	T visitOrderbyfields(SelectParser.OrderbyfieldsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#values}.
+	 * Visit a parse tree produced by {@link SelectParser#groupbyfields}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValues(SelectParser.ValuesContext ctx);
+	T visitGroupbyfields(SelectParser.GroupbyfieldsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#jointable}.
+	 * Visit a parse tree produced by {@link SelectParser#like}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitJointable(SelectParser.JointableContext ctx);
+	T visitLike(SelectParser.LikeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#joinwhere}.
+	 * Visit a parse tree produced by {@link SelectParser#between}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitJoinwhere(SelectParser.JoinwhereContext ctx);
+	T visitBetween(SelectParser.BetweenContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#in}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIn(SelectParser.InContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondition(SelectParser.ConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(SelectParser.FunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#compute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompute(SelectParser.ComputeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SelectParser#field}.
 	 * @param ctx the parse tree
@@ -71,59 +95,29 @@ public interface SelectVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTable(SelectParser.TableContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SelectParser#tables}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTables(SelectParser.TablesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#fields}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFields(SelectParser.FieldsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SelectParser#tablewithalias}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTablewithalias(SelectParser.TablewithaliasContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#fieldwithalias}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldwithalias(SelectParser.FieldwithaliasContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SelectParser#tablewithoutalias}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTablewithoutalias(SelectParser.TablewithoutaliasContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#fieldwithoutalias}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldwithoutalias(SelectParser.FieldwithoutaliasContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#where}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWhere(SelectParser.WhereContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#singlewhere}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSinglewhere(SelectParser.SinglewhereContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#tabledotfield}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTabledotfield(SelectParser.TabledotfieldContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#relator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRelator(SelectParser.RelatorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#relation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRelation(SelectParser.RelationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SelectParser#name}.
 	 * @param ctx the parse tree
@@ -149,30 +143,6 @@ public interface SelectVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatic(SelectParser.StaticContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SelectParser#groupfunctionexpr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGroupfunctionexpr(SelectParser.GroupfunctionexprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#groupingsets}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGroupingsets(SelectParser.GroupingsetsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#cube}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCube(SelectParser.CubeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SelectParser#rollup}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRollup(SelectParser.RollupContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SelectParser#keyword}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -184,4 +154,28 @@ public interface SelectVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitGroupfunctionname(SelectParser.GroupfunctionnameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#values}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValues(SelectParser.ValuesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#tabledotfield}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTabledotfield(SelectParser.TabledotfieldContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#relator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelator(SelectParser.RelatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectParser#relation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelation(SelectParser.RelationContext ctx);
 }

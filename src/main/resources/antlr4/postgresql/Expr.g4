@@ -7,6 +7,11 @@ queryfields : queryfields COMMA queryfields | DISTINCT? compute (AS? alias)?;
 
 where : where relation where | '(' where ')'| condition;
 
+orderbyfields : orderbyfields COMMA orderbyfields | field (ASC | DESC)?;
+
+groupbyfields : groupbyfields COMMA groupbyfields | compute;
+
+
 
 
 

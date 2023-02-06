@@ -38,55 +38,95 @@ public interface SelectListener extends ParseTreeListener {
 	 */
 	void exitQueryfields(SelectParser.QueryfieldsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#fields}.
+	 * Enter a parse tree produced by {@link SelectParser#where}.
 	 * @param ctx the parse tree
 	 */
-	void enterFields(SelectParser.FieldsContext ctx);
+	void enterWhere(SelectParser.WhereContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SelectParser#fields}.
+	 * Exit a parse tree produced by {@link SelectParser#where}.
 	 * @param ctx the parse tree
 	 */
-	void exitFields(SelectParser.FieldsContext ctx);
+	void exitWhere(SelectParser.WhereContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#tables}.
+	 * Enter a parse tree produced by {@link SelectParser#orderbyfields}.
 	 * @param ctx the parse tree
 	 */
-	void enterTables(SelectParser.TablesContext ctx);
+	void enterOrderbyfields(SelectParser.OrderbyfieldsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SelectParser#tables}.
+	 * Exit a parse tree produced by {@link SelectParser#orderbyfields}.
 	 * @param ctx the parse tree
 	 */
-	void exitTables(SelectParser.TablesContext ctx);
+	void exitOrderbyfields(SelectParser.OrderbyfieldsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#values}.
+	 * Enter a parse tree produced by {@link SelectParser#groupbyfields}.
 	 * @param ctx the parse tree
 	 */
-	void enterValues(SelectParser.ValuesContext ctx);
+	void enterGroupbyfields(SelectParser.GroupbyfieldsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SelectParser#values}.
+	 * Exit a parse tree produced by {@link SelectParser#groupbyfields}.
 	 * @param ctx the parse tree
 	 */
-	void exitValues(SelectParser.ValuesContext ctx);
+	void exitGroupbyfields(SelectParser.GroupbyfieldsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#jointable}.
+	 * Enter a parse tree produced by {@link SelectParser#like}.
 	 * @param ctx the parse tree
 	 */
-	void enterJointable(SelectParser.JointableContext ctx);
+	void enterLike(SelectParser.LikeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SelectParser#jointable}.
+	 * Exit a parse tree produced by {@link SelectParser#like}.
 	 * @param ctx the parse tree
 	 */
-	void exitJointable(SelectParser.JointableContext ctx);
+	void exitLike(SelectParser.LikeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#joinwhere}.
+	 * Enter a parse tree produced by {@link SelectParser#between}.
 	 * @param ctx the parse tree
 	 */
-	void enterJoinwhere(SelectParser.JoinwhereContext ctx);
+	void enterBetween(SelectParser.BetweenContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SelectParser#joinwhere}.
+	 * Exit a parse tree produced by {@link SelectParser#between}.
 	 * @param ctx the parse tree
 	 */
-	void exitJoinwhere(SelectParser.JoinwhereContext ctx);
+	void exitBetween(SelectParser.BetweenContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#in}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn(SelectParser.InContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#in}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn(SelectParser.InContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(SelectParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(SelectParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(SelectParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(SelectParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#compute}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompute(SelectParser.ComputeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#compute}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompute(SelectParser.ComputeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SelectParser#field}.
 	 * @param ctx the parse tree
@@ -108,6 +148,26 @@ public interface SelectListener extends ParseTreeListener {
 	 */
 	void exitTable(SelectParser.TableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SelectParser#tables}.
+	 * @param ctx the parse tree
+	 */
+	void enterTables(SelectParser.TablesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#tables}.
+	 * @param ctx the parse tree
+	 */
+	void exitTables(SelectParser.TablesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#fields}.
+	 * @param ctx the parse tree
+	 */
+	void enterFields(SelectParser.FieldsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#fields}.
+	 * @param ctx the parse tree
+	 */
+	void exitFields(SelectParser.FieldsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SelectParser#tablewithalias}.
 	 * @param ctx the parse tree
 	 */
@@ -118,16 +178,6 @@ public interface SelectListener extends ParseTreeListener {
 	 */
 	void exitTablewithalias(SelectParser.TablewithaliasContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#fieldwithalias}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldwithalias(SelectParser.FieldwithaliasContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#fieldwithalias}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldwithalias(SelectParser.FieldwithaliasContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SelectParser#tablewithoutalias}.
 	 * @param ctx the parse tree
 	 */
@@ -137,66 +187,6 @@ public interface SelectListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTablewithoutalias(SelectParser.TablewithoutaliasContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#fieldwithoutalias}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldwithoutalias(SelectParser.FieldwithoutaliasContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#fieldwithoutalias}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldwithoutalias(SelectParser.FieldwithoutaliasContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#where}.
-	 * @param ctx the parse tree
-	 */
-	void enterWhere(SelectParser.WhereContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#where}.
-	 * @param ctx the parse tree
-	 */
-	void exitWhere(SelectParser.WhereContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#singlewhere}.
-	 * @param ctx the parse tree
-	 */
-	void enterSinglewhere(SelectParser.SinglewhereContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#singlewhere}.
-	 * @param ctx the parse tree
-	 */
-	void exitSinglewhere(SelectParser.SinglewhereContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#tabledotfield}.
-	 * @param ctx the parse tree
-	 */
-	void enterTabledotfield(SelectParser.TabledotfieldContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#tabledotfield}.
-	 * @param ctx the parse tree
-	 */
-	void exitTabledotfield(SelectParser.TabledotfieldContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#relator}.
-	 * @param ctx the parse tree
-	 */
-	void enterRelator(SelectParser.RelatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#relator}.
-	 * @param ctx the parse tree
-	 */
-	void exitRelator(SelectParser.RelatorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#relation}.
-	 * @param ctx the parse tree
-	 */
-	void enterRelation(SelectParser.RelationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#relation}.
-	 * @param ctx the parse tree
-	 */
-	void exitRelation(SelectParser.RelationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SelectParser#name}.
 	 * @param ctx the parse tree
@@ -238,46 +228,6 @@ public interface SelectListener extends ParseTreeListener {
 	 */
 	void exitStatic(SelectParser.StaticContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SelectParser#groupfunctionexpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterGroupfunctionexpr(SelectParser.GroupfunctionexprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#groupfunctionexpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitGroupfunctionexpr(SelectParser.GroupfunctionexprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#groupingsets}.
-	 * @param ctx the parse tree
-	 */
-	void enterGroupingsets(SelectParser.GroupingsetsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#groupingsets}.
-	 * @param ctx the parse tree
-	 */
-	void exitGroupingsets(SelectParser.GroupingsetsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#cube}.
-	 * @param ctx the parse tree
-	 */
-	void enterCube(SelectParser.CubeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#cube}.
-	 * @param ctx the parse tree
-	 */
-	void exitCube(SelectParser.CubeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SelectParser#rollup}.
-	 * @param ctx the parse tree
-	 */
-	void enterRollup(SelectParser.RollupContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectParser#rollup}.
-	 * @param ctx the parse tree
-	 */
-	void exitRollup(SelectParser.RollupContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SelectParser#keyword}.
 	 * @param ctx the parse tree
 	 */
@@ -297,4 +247,44 @@ public interface SelectListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitGroupfunctionname(SelectParser.GroupfunctionnameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#values}.
+	 * @param ctx the parse tree
+	 */
+	void enterValues(SelectParser.ValuesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#values}.
+	 * @param ctx the parse tree
+	 */
+	void exitValues(SelectParser.ValuesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#tabledotfield}.
+	 * @param ctx the parse tree
+	 */
+	void enterTabledotfield(SelectParser.TabledotfieldContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#tabledotfield}.
+	 * @param ctx the parse tree
+	 */
+	void exitTabledotfield(SelectParser.TabledotfieldContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#relator}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelator(SelectParser.RelatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#relator}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelator(SelectParser.RelatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelation(SelectParser.RelationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelation(SelectParser.RelationContext ctx);
 }

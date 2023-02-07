@@ -5,18 +5,30 @@ import com.dissdic.separatedata.common.parsinglink.field.SeparateDataFieldNamePa
 import com.dissdic.separatedata.common.parsinglink.field.SeparateDataFieldTableParsingLinkHandler;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class SeparateDataParsingLinkEntrance {
+import java.util.LinkedList;
+
+public class SeparateDataParsingLinkEntrance<T> {
+
+    private SeparateDataAbstractParsingLinkHandler<T,?> head;
+
+    private SeparateDataAbstractParsingLinkHandler<T,?> tail;
 
     //字段解析责任链 减少判断代码块
-    public <T,E extends ParserRuleContext>  SeparateDataFieldNameParsingLinkHandler initFieldParsingLink(){
+    public <E> SeparateDataParsingLinkEntrance<T> addParsingLink(SeparateDataAbstractParsingLinkHandler<T,E> handler,E e){
+        handler.setArg(e);
+        if(head==null){
+            this.head = handler;
+            this.tail = handler;
+        }else{
+            this.tail.setNextNode(handler);
+            this.tail = handler;
+        }
 
-        SeparateDataFieldNameParsingLinkHandler n = new SeparateDataFieldNameParsingLinkHandler();
-        SeparateDataFieldAliasParsingLinkHandler a = new SeparateDataFieldAliasParsingLinkHandler();
-        SeparateDataFieldTableParsingLinkHandler t = new SeparateDataFieldTableParsingLinkHandler();
-
-        n.setNextNode(t);
-        t.setNextNode(a);
-
-        return n;
+        return this;
     }
+
+    public T invoke(T t){
+        return this.head.execute(t);
+    }
+
 }

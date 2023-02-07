@@ -5,8 +5,12 @@ import com.dissdic.separatedata.common.parsinglink.SeparateDataAbstractParsingLi
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 
 public class SeparateDataFieldNameParsingLinkHandler extends SeparateDataAbstractParsingLinkHandler<SeparateDataField, SelectParser.QueryfieldsContext> {
+
     @Override
-    public SeparateDataField handle(SelectParser.QueryfieldsContext queryfieldsContext) {
-        return null;
+    protected void handle(SelectParser.QueryfieldsContext queryfieldsContext, SeparateDataField field) {
+        SelectParser.NameContext nameContext = queryfieldsContext.compute().field().name();
+        if(nameContext!=null){
+            field.setName(nameContext.getText());
+        }
     }
 }

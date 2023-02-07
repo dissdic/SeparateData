@@ -2,6 +2,8 @@ package com.dissdic.separatedata.common.meta;
 
 public class SeparateDataField {
 
+    private boolean all;
+
     private String name;
 
     private String alias;
@@ -30,5 +32,13 @@ public class SeparateDataField {
 
     public void setTable(SeparateDataTable table) {
         this.table = table;
+    }
+
+    public boolean isAll() {
+        return all;
+    }
+
+    public void setAll(boolean all) {
+        this.all = all;
     }
 }

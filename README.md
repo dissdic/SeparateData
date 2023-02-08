@@ -140,7 +140,12 @@ IMPORT FOREIGN SCHEMA public LIMIT TO (test_table)
 >比如一张user表，划分成user1,user2,分别存在a库，b库，但由于跨库的存在
 >其实解析过程和水平分表完全一致。可忽略掉不同库的存在
 
-
+## 解析过程
+### 查询
+1. 获取SQL
+2. 判定SQL的操作类型
+3. 如果是查询操作，visit tables和joins table根据设定好的分库分表规则判断是否需要解析SQL
+4. 解析获取查询字段和条件字段，
 
 
 

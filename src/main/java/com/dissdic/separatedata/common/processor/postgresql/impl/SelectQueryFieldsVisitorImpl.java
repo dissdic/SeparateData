@@ -24,8 +24,6 @@ public class SelectQueryFieldsVisitorImpl extends SelectBaseVisitor<String> {
     private List<SeparateDataTable> separateDataTables = new ArrayList<>();
     private List<SeparateDataField> separateDataFields = new ArrayList<>();
     private boolean queryAllFieldsOfAllTables = false;
-    
-    private List<>
 
 
     @Override

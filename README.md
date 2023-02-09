@@ -144,8 +144,10 @@ IMPORT FOREIGN SCHEMA public LIMIT TO (test_table)
 ### 查询
 1. 获取SQL
 2. 判定SQL的操作类型
-3. 如果是查询操作，visit tables和joins table根据设定好的分库分表规则判断是否需要解析SQL
-4. 解析获取查询字段和条件字段，
+3. 如果是查询操作，visit tables和joins table根据设定好的分库分表规则判断是否有表需要解析SQL，以及哪些表需要解析，分库分表模式是啥
+4. 如果是单表，且这个表分库分表了，则解析where字句,join字句中涉及的条件，如果包含了分库分表的字段，用select count(*)分别在切分的子表里执行，通过count结果决定是否生成SQL，没有包含就直接union串连
+5. 如果不是单表，涉及到多张表，先把没有别名的表的所有字段都查出来，存储在内存里。
+6. 解析where子句，join子句中的字段，按照单表去解析SQL
 
 
 

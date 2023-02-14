@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class SelectQueryFieldsVisitorImpl extends SelectBaseVisitor<String> {
+public class SelectQueryFieldsVisitorImpl extends SelectBaseVisitor<Object> {
 
     private List<SeparateDataTable> separateDataTables = new ArrayList<>();
     private List<SeparateDataField> separateDataFields = new ArrayList<>();
@@ -27,7 +27,7 @@ public class SelectQueryFieldsVisitorImpl extends SelectBaseVisitor<String> {
 
 
     @Override
-    public String visitQueryfields(SelectParser.QueryfieldsContext ctx) {
+    public Object visitQueryfields(SelectParser.QueryfieldsContext ctx) {
         List<SelectParser.QueryfieldsContext> list = ctx.queryfields();
         if(list!=null && !list.isEmpty()){
 
@@ -53,34 +53,34 @@ public class SelectQueryFieldsVisitorImpl extends SelectBaseVisitor<String> {
     }
 
     @Override
-    public String visitGroupbyfields(SelectParser.GroupbyfieldsContext ctx) {
+    public Object visitGroupbyfields(SelectParser.GroupbyfieldsContext ctx) {
         return "2";
     }
 
     @Override
-    public String visitWhere(SelectParser.WhereContext ctx) {
+    public Object visitWhere(SelectParser.WhereContext ctx) {
         return "3";
     }
 
     @Override
-    public String visitTables(SelectParser.TablesContext ctx) {
+    public Object visitTables(SelectParser.TablesContext ctx) {
         List<SelectParser.TablesContext> tablesContexts = ctx.tables();
         for (int i = 0; i < tablesContexts.size(); i++) {
             SelectParser.TablesContext tablesContext = tablesContexts.get(i);
             SeparateDataTable table = new SeparateDataTable();
             separateDataTables.add(table);
-
+            //责任链过滤链
             SeparateDataParsingLinkEntrance<SeparateDataTable> entrance = new SeparateDataParsingLinkEntrance<>();
             entrance.addParsingLink(new SeparateDataTableWithAliasParsingLinkHandler(),tablesContext.table().tablewithalias())
                     .addParsingLink(new SeparateDataTableWithoutAliasParsingLinkHandler(),tablesContext.table().tablewithoutalias())
                     .invoke(table);
 
         }
-        return "4";
+        return separateDataTables;
     }
 
     @Override
-    public String visitOrderbyfields(SelectParser.OrderbyfieldsContext ctx) {
+    public Object visitOrderbyfields(SelectParser.OrderbyfieldsContext ctx) {
         return "5";
     }
 }

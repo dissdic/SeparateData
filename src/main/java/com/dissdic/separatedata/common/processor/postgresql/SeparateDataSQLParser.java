@@ -3,7 +3,7 @@ package com.dissdic.separatedata.common.processor.postgresql;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
-import com.dissdic.separatedata.common.processor.postgresql.impl.SelectQueryFieldsVisitorImpl;
+import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -68,14 +68,19 @@ public class SeparateDataSQLParser {
 
     public void select(String sql){
 
-        SelectQueryFieldsVisitorImpl visitor = new SelectQueryFieldsVisitorImpl();
+        SeparateDataSelectVisitorImpl visitor = new SeparateDataSelectVisitorImpl();
         CodePointCharStream stream = CharStreams.fromString(sql);
         SelectLexer selectLexer = new SelectLexer(stream);
 
         CommonTokenStream token = new CommonTokenStream(selectLexer);
         SelectParser selectParser = new SelectParser(token);
         SelectParser.TablesContext tablesContext = selectParser.select().tables();
+        List<SelectParser.JoinContext> joinContext = selectParser.select().join();
         List<SeparateDataTable> tables = (List<SeparateDataTable>)visitor.visitTables(tablesContext);
+        for (SelectParser.JoinContext context : joinContext) {
+//            SeparateDataTable table = visitor.visitJoin(context);
+
+        }
 
         System.out.println(tables);
 

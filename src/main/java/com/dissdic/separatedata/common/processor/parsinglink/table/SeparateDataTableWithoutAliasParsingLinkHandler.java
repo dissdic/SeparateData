@@ -1,7 +1,7 @@
-package com.dissdic.separatedata.common.parsinglink.table;
+package com.dissdic.separatedata.common.processor.parsinglink.table;
 
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
-import com.dissdic.separatedata.common.parsinglink.SeparateDataAbstractParsingLinkHandler;
+import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataAbstractParsingLinkHandler;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 
 public class SeparateDataTableWithoutAliasParsingLinkHandler extends SeparateDataAbstractParsingLinkHandler<SeparateDataTable, SelectParser.TablewithoutaliasContext> {

@@ -2,7 +2,7 @@ package com.dissdic.separatedata;
 
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataProcessorTrigger;
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataSQLParser;
-import com.dissdic.separatedata.common.processor.postgresql.impl.SelectQueryFieldsVisitorImpl;
+import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
 import org.junit.jupiter.api.Test;
 
 public class ANTLRTest {
@@ -10,7 +10,7 @@ public class ANTLRTest {
     @Test
     public void testVisit() throws Throwable{
         String input = "     select\n user.name as au,age ua from user user where id=1 and age>1";
-        SelectQueryFieldsVisitorImpl visitor = new SelectQueryFieldsVisitorImpl();
+        SeparateDataSelectVisitorImpl visitor = new SeparateDataSelectVisitorImpl();
         SeparateDataProcessorTrigger trigger = new SeparateDataProcessorTrigger();
         trigger.visit(input,"Select","select",visitor);
 

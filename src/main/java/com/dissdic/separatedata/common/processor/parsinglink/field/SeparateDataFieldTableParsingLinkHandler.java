@@ -1,8 +1,8 @@
-package com.dissdic.separatedata.common.parsinglink.field;
+package com.dissdic.separatedata.common.processor.parsinglink.field;
 
 import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
-import com.dissdic.separatedata.common.parsinglink.SeparateDataAbstractParsingLinkHandler;
+import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataAbstractParsingLinkHandler;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
 

@@ -1,6 +1,4 @@
-package com.dissdic.separatedata.common.parsinglink;
-
-import com.sun.deploy.util.ReflectionUtil;
+package com.dissdic.separatedata.common.processor.parsinglink;
 
 public abstract class SeparateDataAbstractParsingLinkHandler<T,E> {
 
@@ -26,10 +24,6 @@ public abstract class SeparateDataAbstractParsingLinkHandler<T,E> {
 
     public <R> void setNextNode(SeparateDataAbstractParsingLinkHandler<T,R> nextNode){
         this.nextNode = nextNode;
-    }
-
-    public <R> SeparateDataAbstractParsingLinkHandler<T,R> getNextNode(){
-        return (SeparateDataAbstractParsingLinkHandler<T, R>) this.nextNode;
     }
 
 }

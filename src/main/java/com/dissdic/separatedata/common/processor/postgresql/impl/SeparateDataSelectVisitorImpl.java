@@ -42,18 +42,18 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
             }
         }
 
-        return "1";
+        return null;
     }
 
     @Override
     public Object visitGroupbyfields(SelectParser.GroupbyfieldsContext ctx) {
-        return "2";
+        return null;
     }
 
     @Override
     public Object visitWhere(SelectParser.WhereContext ctx) {
 
-        return "3";
+        return null;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
             SelectParser.TablesContext tablesContext = tablesContexts.get(i);
             parseTable(tablesContext.table());
         }
-        return separateDataTables;
+        return null;
     }
 
     @Override

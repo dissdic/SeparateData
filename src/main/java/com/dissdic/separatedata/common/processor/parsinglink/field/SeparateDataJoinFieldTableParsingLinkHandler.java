@@ -14,9 +14,14 @@ public class SeparateDataJoinFieldTableParsingLinkHandler extends SeparateDataAb
         if(tabledotfieldContext!=null){
 
             SelectParser.NameoraliasContext nameoralias = tabledotfieldContext.nameoralias();
+            String tableAlias = nameoralias.getText();
             List<SeparateDataTable> tables = SeparateDataVisitorContextHolder.SELECT.getParsingTableList();
+            SeparateDataTable table = tables.stream().filter(c->tableAlias.equalsIgnoreCase(c.getAlias())).findFirst().orElse(null);
+            if(table!=null){
+                field.setTable(table);
+            }
+            SelectParser.NameContext nameContext = tabledotfieldContext.name();
 
-            tabledotfieldContext.name();
 
         }
     }

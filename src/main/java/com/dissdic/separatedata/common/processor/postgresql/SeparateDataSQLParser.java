@@ -1,5 +1,6 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
+import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
@@ -67,6 +68,9 @@ public class SeparateDataSQLParser {
     }
 
     public void select(String sql){
+
+        SeparateDataParsingResult result = new SeparateDataParsingResult();
+        SeparateDataVisitorContextHolder.SELECT.setParsingResultContext(result);
 
         SeparateDataSelectVisitorImpl visitor = new SeparateDataSelectVisitorImpl();
         CodePointCharStream stream = CharStreams.fromString(sql);

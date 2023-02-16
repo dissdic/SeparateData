@@ -77,8 +77,7 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
             for (SelectParser.FieldsContext fieldsContext_ : FieldsContextList) {
                 SelectParser.FieldContext fieldContext = fieldsContext_.field();
                 SeparateDataField field = new SeparateDataField();
-                separateDataFields.add(field);
-
+                SeparateDataVisitorContextHolder.SELECT.addParsingFiled(field);
                 fieldContext.tabledotfield();
                 SeparateDataParsingLinkEntrance<SeparateDataField> entrance = new SeparateDataParsingLinkEntrance<>();
                 entrance.addParsingLink(new SeparateDataFieldNameParsingLinkHandler(),fieldsContext)
@@ -88,6 +87,8 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
 
             }
         }
+
+        return null;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
 
     private void parseTable(SelectParser.TableContext tableContext){
         SeparateDataTable table = new SeparateDataTable();
-        separateDataTables.add(table);
+        SeparateDataVisitorContextHolder.SELECT.addParsingTable(table);
         //责任链过滤链
         SeparateDataParsingLinkEntrance<SeparateDataTable> entrance = new SeparateDataParsingLinkEntrance<>();
         entrance.addParsingLink(new SeparateDataTableWithAliasParsingLinkHandler(),tableContext.tablewithalias())

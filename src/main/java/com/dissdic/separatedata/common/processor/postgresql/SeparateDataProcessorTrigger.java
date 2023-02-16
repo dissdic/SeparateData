@@ -37,7 +37,7 @@ public class SeparateDataProcessorTrigger {
         ParseTreeWalker.DEFAULT.walk(listener,parseTree(sql,grammar,parser));
     }
 
-    public <T> T visit(String sql, String grammar, String parser, ParseTreeVisitor<T> visitor) throws Throwable {
-        return visitor.visit(parseTree(sql,grammar,parser));
+    public <T> void visit(String sql, String grammar, String parser, ParseTreeVisitor<T> visitor) throws Throwable {
+        visitor.visit(parseTree(sql, grammar, parser));
     }
 }

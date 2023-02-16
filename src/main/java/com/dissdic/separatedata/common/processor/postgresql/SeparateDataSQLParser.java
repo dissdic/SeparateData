@@ -1,7 +1,9 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
+import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
+import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataParsingLinkEntrance;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
@@ -19,6 +21,16 @@ public class SeparateDataSQLParser {
     private static final String SELECT = "SELECT";
 
     private static final String whitespace = "\n\t\r ";
+
+    private final SeparateDataParsingLinkEntrance<SeparateDataTable> parsingTableLink;
+    private final SeparateDataParsingLinkEntrance<SeparateDataField> parsingFieldLink;
+    
+    public SeparateDataSQLParser(){
+        parsingTableLink = new SeparateDataParsingLinkEntrance<>();
+        parsingFieldLink = new SeparateDataParsingLinkEntrance<>();
+
+
+    }
 
     private void eatWhitespace(String str){
 

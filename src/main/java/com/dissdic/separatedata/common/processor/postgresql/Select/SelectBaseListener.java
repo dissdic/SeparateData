@@ -53,6 +53,18 @@ public class SelectBaseListener implements SelectListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterQueryfield(SelectParser.QueryfieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQueryfield(SelectParser.QueryfieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhere(SelectParser.WhereContext ctx) { }
 	/**
 	 * {@inheritDoc}

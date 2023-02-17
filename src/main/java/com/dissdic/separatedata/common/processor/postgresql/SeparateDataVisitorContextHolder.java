@@ -3,10 +3,10 @@ package com.dissdic.separatedata.common.processor.postgresql;
 import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
-import com.dissdic.separatedata.common.processor.postgresql.Select.SelectVisitor;
-import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SeparateDataVisitorContextHolder {
 
@@ -14,6 +14,16 @@ public class SeparateDataVisitorContextHolder {
     public static class SELECT{
 
         private static final ThreadLocal<SeparateDataParsingResult> parsingResultContext = new ThreadLocal<>();
+
+        public static void setTmpAlias(String tmpAlias){
+            getParsingResultContext().setTmpAlias(tmpAlias);
+        }
+
+        public static void resetTmpAlias(){
+            getParsingResultContext().setTmpAlias(null);
+        }
+
+        public static Map<String,List<SeparateDataField>> map;
 
         public static void setQueryAll(boolean all){
             getParsingResultContext().setQueryAllFieldsOfAllTables(all);
@@ -25,6 +35,16 @@ public class SeparateDataVisitorContextHolder {
 
         public static void addParsingFiled(SeparateDataField separateDataField){
             getParsingFieldList().add(separateDataField);
+            if(getParsingResultContext().getTmpAlias()!=null){
+                List<SeparateDataField> fields = getParsingResultContext().getAlias2Fields().get(getParsingResultContext().getTmpAlias());
+                if(fields==null){
+                    fields = new ArrayList<>();
+                    fields.add(separateDataField);
+                    getParsingResultContext().getAlias2Fields().put(getParsingResultContext().getTmpAlias(),fields);
+                }else{
+                    fields.add(separateDataField);
+                }
+            }
         }
 
         public static List<SeparateDataField> getParsingFieldList(){

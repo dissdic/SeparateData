@@ -26,4 +26,12 @@ public abstract class SeparateDataAbstractParsingLinkHandler<T,E> {
         this.nextNode = nextNode;
     }
 
+    public <R> void appendNode(SeparateDataAbstractParsingLinkHandler<T,R> appendNode,R r){
+        if(this.nextNode!=null){
+            appendNode.nextNode = this.nextNode;
+        }
+        appendNode.setArg(r);
+        this.nextNode = appendNode;
+    }
+
 }

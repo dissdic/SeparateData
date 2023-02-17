@@ -29,6 +29,12 @@ public interface SelectVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitQueryfields(SelectParser.QueryfieldsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SelectParser#queryfield}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQueryfield(SelectParser.QueryfieldContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SelectParser#where}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

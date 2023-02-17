@@ -38,6 +38,16 @@ public interface SelectListener extends ParseTreeListener {
 	 */
 	void exitQueryfields(SelectParser.QueryfieldsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SelectParser#queryfield}.
+	 * @param ctx the parse tree
+	 */
+	void enterQueryfield(SelectParser.QueryfieldContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectParser#queryfield}.
+	 * @param ctx the parse tree
+	 */
+	void exitQueryfield(SelectParser.QueryfieldContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SelectParser#where}.
 	 * @param ctx the parse tree
 	 */

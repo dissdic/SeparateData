@@ -3,9 +3,7 @@ package com.dissdic.separatedata.common.processor.postgresql.impl;
 import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
 import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataParsingLinkEntrance;
-import com.dissdic.separatedata.common.processor.parsinglink.field.SeparateDataFieldAliasParsingLinkHandler;
-import com.dissdic.separatedata.common.processor.parsinglink.field.SeparateDataFieldNameParsingLinkHandler;
-import com.dissdic.separatedata.common.processor.parsinglink.field.SeparateDataFieldTableParsingLinkHandler;
+import com.dissdic.separatedata.common.processor.parsinglink.field.*;
 import com.dissdic.separatedata.common.processor.parsinglink.table.SeparateDataTableWithAliasParsingLinkHandler;
 import com.dissdic.separatedata.common.processor.parsinglink.table.SeparateDataTableWithoutAliasParsingLinkHandler;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectBaseVisitor;
@@ -13,36 +11,29 @@ import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataVisitorContextHolder;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
 
-
     @Override
     public Object visitQueryfields(SelectParser.QueryfieldsContext ctx) {
-        List<SelectParser.QueryfieldsContext> list = ctx.queryfields();
-        if(list!=null && !list.isEmpty()){
+        return super.visitQueryfields(ctx);
+    }
 
-            for (int i = 0; i < list.size(); i++) {
-
-                SelectParser.QueryfieldsContext fieldsContext = list.get(i);
-                TerminalNode sr = fieldsContext.compute().field().SR();
-                if(sr!=null){
-                    SeparateDataVisitorContextHolder.SELECT.setQueryAll(true);
-                    break;
-                }
-                SeparateDataParsingLinkEntrance<SeparateDataField> entrance = new SeparateDataParsingLinkEntrance<>();
-                entrance.addParsingLink(new SeparateDataFieldNameParsingLinkHandler(),fieldsContext)
-                        .addParsingLink(new SeparateDataFieldAliasParsingLinkHandler(),fieldsContext.alias())
-                        .addParsingLink(new SeparateDataFieldTableParsingLinkHandler(),fieldsContext.compute().field().tabledotfield());
-                SeparateDataField field = new SeparateDataField();
-                SeparateDataVisitorContextHolder.SELECT.addParsingFiled(field);
-                entrance.invoke(field);
-            }
+    @Override
+    public Object visitQueryfield(SelectParser.QueryfieldContext ctx) {
+        SeparateDataVisitorContextHolder.SELECT.resetTmpAlias();
+        SelectParser.AliasContext aliasContext = ctx.alias();
+        if(aliasContext!=null){
+            SeparateDataVisitorContextHolder.SELECT.setTmpAlias(aliasContext.getText());
         }
+        return super.visitQueryfield(ctx);
+    }
 
-        return null;
+    @Override
+    public Object visitField(SelectParser.FieldContext ctx) {
+        parseField(ctx);
+        return super.visitField(ctx);
     }
 
     @Override
@@ -76,17 +67,10 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
             List<SelectParser.FieldsContext> FieldsContextList = fieldsContext.fields();
             for (SelectParser.FieldsContext fieldsContext_ : FieldsContextList) {
                 SelectParser.FieldContext fieldContext = fieldsContext_.field();
-                SeparateDataField field = new SeparateDataField();
-                SeparateDataVisitorContextHolder.SELECT.addParsingFiled(field);
-                fieldContext.tabledotfield();
-                SeparateDataParsingLinkEntrance<SeparateDataField> entrance = new SeparateDataParsingLinkEntrance<>();
-                entrance.addParsingLink(new SeparateDataFieldNameParsingLinkHandler(),fieldsContext)
-                        .addParsingLink(new SeparateDataFieldAliasParsingLinkHandler(),fieldsContext.alias())
-                        .addParsingLink(new SeparateDataFieldTableParsingLinkHandler(),fieldsContext.compute().field().tabledotfield());
-                entrance.invoke(field);
-
+                parseField(fieldContext);
             }
         }
+        SelectParser.WhereContext whereContext = ctx.where();
 
         return null;
     }
@@ -105,5 +89,42 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
                 .addParsingLink(new SeparateDataTableWithoutAliasParsingLinkHandler(),tableContext.tablewithoutalias())
                 .invoke(table);
 
+    }
+
+    private void parseField(SelectParser.FieldContext fieldContext){
+        TerminalNode sr = fieldContext.SR();
+        if(sr!=null){
+            SeparateDataVisitorContextHolder.SELECT.setQueryAll(true);
+            return;
+        }
+        SeparateDataParsingLinkEntrance<SeparateDataField> entrance = new SeparateDataParsingLinkEntrance<>();
+        SeparateDataField field = new SeparateDataField();
+        SeparateDataVisitorContextHolder.SELECT.addParsingFiled(field);
+        entrance.addParsingLink(new SeparateDataFieldNameParsingLinkHandler(),fieldContext.name())
+                .addParsingLink(new SeparateDataFieldTableParsingLinkHandler(),fieldContext.tabledotfield())
+        .invoke(field);
+    }
+
+    public void parseCompute(SelectParser.ComputeContext computeContext){
+        SelectParser.FieldContext fieldContext = computeContext.field();
+        if(fieldContext!=null){
+            parseField(fieldContext);
+        }else{
+            SelectParser.FunctionContext functionContext = computeContext.function();
+            if(functionContext!=null){
+                List<SelectParser.ComputeContext> computes = functionContext.compute();
+                if(computes!=null && !computes.isEmpty()){
+                    for (SelectParser.ComputeContext compute : computes) {
+                        parseCompute(compute);
+                    }
+                }
+            }
+            List<SelectParser.ComputeContext> computes = computeContext.compute();
+            if(computes!=null && !computes.isEmpty()){
+                for (SelectParser.ComputeContext compute : computes) {
+                    parseCompute(compute);
+                }
+            }
+        }
     }
 }

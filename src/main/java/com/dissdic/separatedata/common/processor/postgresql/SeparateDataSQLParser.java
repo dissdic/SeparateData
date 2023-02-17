@@ -22,16 +22,6 @@ public class SeparateDataSQLParser {
 
     private static final String whitespace = "\n\t\r ";
 
-    private final SeparateDataParsingLinkEntrance<SeparateDataTable> parsingTableLink;
-    private final SeparateDataParsingLinkEntrance<SeparateDataField> parsingFieldLink;
-    
-    public SeparateDataSQLParser(){
-        parsingTableLink = new SeparateDataParsingLinkEntrance<>();
-        parsingFieldLink = new SeparateDataParsingLinkEntrance<>();
-
-
-    }
-
     private void eatWhitespace(String str){
 
         for (int i = 0; i < str.length(); i++) {

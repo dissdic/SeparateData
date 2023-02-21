@@ -1,11 +1,13 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
+import com.dissdic.separatedata.common.context.SeparateDataRuleAndDataSourceContext;
 import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
 import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataParsingLinkEntrance;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
+import com.dissdic.separatedata.common.processor.postgresql.Select.SelectVisitor;
 import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
@@ -75,21 +77,46 @@ public class SeparateDataSQLParser {
         SeparateDataVisitorContextHolder.SELECT.setParsingResultContext(result);
 
         SeparateDataSelectVisitorImpl visitor = new SeparateDataSelectVisitorImpl();
+        SelectParser selectParser = selectParser(sql);
+
+        selectParse(selectParser,visitor);
+
+        System.out.println("解析完成");
+        
+    }
+
+    public SelectParser selectParser(String sql){
         CodePointCharStream stream = CharStreams.fromString(sql);
         SelectLexer selectLexer = new SelectLexer(stream);
 
         CommonTokenStream token = new CommonTokenStream(selectLexer);
-        SelectParser selectParser = new SelectParser(token);
-        SelectParser.TablesContext tablesContext = selectParser.select().tables();
-        List<SelectParser.JoinContext> joinContext = selectParser.select().join();
-        List<SeparateDataTable> tables = (List<SeparateDataTable>)visitor.visitTables(tablesContext);
+        return new SelectParser(token);
+    }
+
+    public void selectParse(SelectParser selectParser, SelectVisitor<Object> visitor){
+        //先解析涉及到的表
+        SelectParser.SelectContext select = selectParser.select();
+        SelectParser.TablesContext tablesContext = select.tables();
+        List<SelectParser.JoinContext> joinContext = select.join();
+        SelectParser.QueryfieldsContext queryfieldsContext = select.queryfields();
+        List<SelectParser.WhereContext> whereContexts = select.where();
+        SelectParser.GroupbyfieldsContext groupbyfields = select.groupbyfields();
+        SelectParser.OrderbyfieldsContext orderbyfields = select.orderbyfields();
+
+        visitor.visitTables(tablesContext);
         for (SelectParser.JoinContext context : joinContext) {
-//            SeparateDataTable table = visitor.visitJoin(context);
-
+            visitor.visitJoin(context);
         }
-
-        System.out.println(tables);
-
+        //解析查询字段
+        SeparateDataVisitorContextHolder.SELECT.querying(true);
+        visitor.visitQueryfields(queryfieldsContext);
+        SeparateDataVisitorContextHolder.SELECT.querying(false);
+        //解析条件
+        for (SelectParser.WhereContext where:whereContexts){
+            visitor.visitWhere(where);
+        }
+        visitor.visitGroupbyfields(groupbyfields);
+        visitor.visitOrderbyfields(orderbyfields);
     }
 
     public void insert(String sql){}

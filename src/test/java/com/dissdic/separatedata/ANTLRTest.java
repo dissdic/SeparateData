@@ -45,7 +45,17 @@ public class ANTLRTest {
         SelectParser selectParser = new SelectParser(token);
         SelectParser.QueryfieldsContext cc = selectParser.select().queryfields();
 
+        selectParser.select().tables();
+
         visitor.visitQueryfields(cc);
+
         System.out.println();
+    }
+
+    @Test
+    public void test1(){
+        SeparateDataSQLParser parser = new SeparateDataSQLParser();
+        String sql = "select u.a+ui.b as er,js as jio,uj from user as u left join hhds as ui on u.id = ui.jj";
+        parser.parse(sql);
     }
 }

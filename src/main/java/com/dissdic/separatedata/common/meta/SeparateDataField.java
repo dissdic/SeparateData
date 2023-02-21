@@ -2,9 +2,13 @@ package com.dissdic.separatedata.common.meta;
 
 public class SeparateDataField {
 
+    private String tableAlias;
+
     private boolean all;
 
     private String name;
+
+    private boolean query;
 
     private SeparateDataTable table;
 
@@ -30,5 +34,21 @@ public class SeparateDataField {
 
     public void setAll(boolean all) {
         this.all = all;
+    }
+
+    public String getTableAlias() {
+        return tableAlias;
+    }
+
+    public void setTableAlias(String tableAlias) {
+        this.tableAlias = tableAlias;
+    }
+
+    public boolean isQuery() {
+        return query;
+    }
+
+    public void setQuery(boolean query) {
+        this.query = query;
     }
 }

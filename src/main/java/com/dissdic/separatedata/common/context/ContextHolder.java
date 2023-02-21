@@ -1,20 +1,18 @@
 package com.dissdic.separatedata.common.context;
 
-import com.dissdic.separatedata.common.jdbc.connection.manager.ConnectionManager;
-
 import java.lang.reflect.InvocationHandler;
 
 public class ContextHolder {
 
-    static RuleAndDataSourceContext context;
+    static SeparateDataRuleAndDataSourceContext context;
 
     static InvocationHandler connectionManagerHandler;
 
-    public static void setContext(RuleAndDataSourceContext context){
+    public static void setContext(SeparateDataRuleAndDataSourceContext context){
         ContextHolder.context = context;
     }
 
-    public static RuleAndDataSourceContext getContext(){
+    public static SeparateDataRuleAndDataSourceContext getContext(){
         return ContextHolder.context;
     }
 

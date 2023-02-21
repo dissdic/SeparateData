@@ -15,6 +15,10 @@ public class SeparateDataVisitorContextHolder {
 
         private static final ThreadLocal<SeparateDataParsingResult> parsingResultContext = new ThreadLocal<>();
 
+        public static void querying(boolean querying){
+            getParsingResultContext().setQuerying(querying);
+        }
+
         public static void setTmpAlias(String tmpAlias){
             getParsingResultContext().setTmpAlias(tmpAlias);
         }
@@ -33,18 +37,24 @@ public class SeparateDataVisitorContextHolder {
             return getParsingResultContext().isQueryAllFieldsOfAllTables();
         }
 
-        public static void addParsingFiled(SeparateDataField separateDataField){
+        public static void addParsingField(SeparateDataField separateDataField){
+
+            separateDataField.setQuery(getParsingResultContext().isQuerying());
             getParsingFieldList().add(separateDataField);
             if(getParsingResultContext().getTmpAlias()!=null){
-                List<SeparateDataField> fields = getParsingResultContext().getAlias2Fields().get(getParsingResultContext().getTmpAlias());
+                List<SeparateDataField> fields = getAlias2Fields().get(getParsingResultContext().getTmpAlias());
                 if(fields==null){
                     fields = new ArrayList<>();
                     fields.add(separateDataField);
-                    getParsingResultContext().getAlias2Fields().put(getParsingResultContext().getTmpAlias(),fields);
+                    getAlias2Fields().put(getParsingResultContext().getTmpAlias(),fields);
                 }else{
                     fields.add(separateDataField);
                 }
             }
+        }
+
+        public static Map<String,List<SeparateDataField>> getAlias2Fields(){
+            return getParsingResultContext().getAlias2Fields();
         }
 
         public static List<SeparateDataField> getParsingFieldList(){

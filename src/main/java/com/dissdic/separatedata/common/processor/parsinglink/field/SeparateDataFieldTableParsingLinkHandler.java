@@ -15,6 +15,7 @@ public class SeparateDataFieldTableParsingLinkHandler extends SeparateDataAbstra
         if(tabledotfieldContext!=null){
             SelectParser.NameoraliasContext nameoralias = tabledotfieldContext.nameoralias();
             String tableAlias = nameoralias.getText();
+            field.setTableAlias(tableAlias);
             List<SeparateDataTable> tables = SeparateDataVisitorContextHolder.SELECT.getParsingTableList();
             tables.stream().filter(c -> tableAlias.equalsIgnoreCase(c.getAlias())).findFirst().ifPresent(field::setTable);
             SelectParser.NameContext nameContext = tabledotfieldContext.name();

@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class SeparateDataParsingResult {
 
+    private boolean querying;
     private String tmpAlias;
     private Map<String,List<SeparateDataField>> alias2Fields = new HashMap<>();
     private List<SeparateDataTable> separateDataTables = new ArrayList<>();
@@ -61,5 +62,13 @@ public class SeparateDataParsingResult {
 
     public void setSql(String sql) {
         this.sql = sql;
+    }
+
+    public boolean isQuerying() {
+        return querying;
+    }
+
+    public void setQuerying(boolean querying) {
+        this.querying = querying;
     }
 }

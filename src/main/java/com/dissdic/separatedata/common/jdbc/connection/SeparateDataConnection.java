@@ -1,19 +1,13 @@
 package com.dissdic.separatedata.common.jdbc.connection;
 
 import com.dissdic.separatedata.common.context.ContextHolder;
-import com.dissdic.separatedata.common.context.RuleAndDataSourceContext;
 import com.dissdic.separatedata.common.jdbc.connection.manager.ConnectionManager;
 import com.dissdic.separatedata.common.jdbc.connection.manager.SeparateConnectionManager;
 import com.dissdic.separatedata.common.jdbc.statement.SeparateDataPreparedStatement;
-import org.omg.CORBA.CODESET_INCOMPATIBLE;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.sql.*;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 
 import static java.lang.reflect.Proxy.newProxyInstance;
 

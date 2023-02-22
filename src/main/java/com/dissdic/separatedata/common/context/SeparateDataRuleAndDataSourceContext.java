@@ -1,8 +1,7 @@
 package com.dissdic.separatedata.common.context;
 
-import com.dissdic.separatedata.common.jdbc.datesource.SeparateDataDataSource;
-import com.dissdic.separatedata.common.rule.SeparateDatabaseRule;
-import com.dissdic.separatedata.common.rule.SeparateTableRule;
+import com.dissdic.separatedata.common.rule.SeparateDataDatabaseRule;
+import com.dissdic.separatedata.common.rule.SeparateDataTableRule;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.Map;
 public final class SeparateDataRuleAndDataSourceContext {
 
     private static Map<String,DataSource> dataSource;
-    private static List<SeparateDatabaseRule> databaseRules;
-    private static List<SeparateTableRule> tableRules;
+    private static List<SeparateDataDatabaseRule> databaseRules;
+    private static List<SeparateDataTableRule> tableRules;
 
     public static Map<String, DataSource> getDataSource() {
         return dataSource;
@@ -22,19 +21,19 @@ public final class SeparateDataRuleAndDataSourceContext {
         SeparateDataRuleAndDataSourceContext.dataSource = dataSource;
     }
 
-    public static List<SeparateDatabaseRule> getDatabaseRules() {
+    public static List<SeparateDataDatabaseRule> getDatabaseRules() {
         return databaseRules;
     }
 
-    public static void setDatabaseRules(List<SeparateDatabaseRule> databaseRules) {
+    public static void setDatabaseRules(List<SeparateDataDatabaseRule> databaseRules) {
         SeparateDataRuleAndDataSourceContext.databaseRules = databaseRules;
     }
 
-    public List<SeparateTableRule> getTableRules() {
+    public static List<SeparateDataTableRule> getTableRules() {
         return tableRules;
     }
 
-    public void setTableRules(List<SeparateTableRule> tableRules) {
+    public static void setTableRules(List<SeparateDataTableRule> tableRules) {
         SeparateDataRuleAndDataSourceContext.tableRules = tableRules;
     }
 }

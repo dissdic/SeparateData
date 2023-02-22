@@ -3,7 +3,7 @@ package com.dissdic.separatedata.common.rule;
 import java.util.List;
 import java.util.Map;
 
-public class SeparateTableRule {
+public class SeparateDataTableRule {
 
     private String tableName;
 

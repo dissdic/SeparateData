@@ -1,14 +1,13 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
 import com.dissdic.separatedata.common.context.SeparateDataRuleAndDataSourceContext;
-import com.dissdic.separatedata.common.meta.SeparateDataField;
 import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
-import com.dissdic.separatedata.common.processor.parsinglink.SeparateDataParsingLinkEntrance;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectVisitor;
 import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
+import com.dissdic.separatedata.common.rule.SeparateDataTableRule;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -82,7 +81,14 @@ public class SeparateDataSQLParser {
         selectParse(selectParser,visitor);
 
         System.out.println("解析完成");
+
+        List<SeparateDataTable> involvedTables = SeparateDataVisitorContextHolder.SELECT.getParsingTableList();
         
+        List<SeparateDataTableRule> tableRules = SeparateDataRuleAndDataSourceContext.getTableRules();
+        for (SeparateDataTableRule tableRule : tableRules) {
+            String tableName = tableRule.getTableName();
+
+        }
     }
 
     public SelectParser selectParser(String sql){

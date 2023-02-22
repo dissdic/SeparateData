@@ -3,7 +3,7 @@ package com.dissdic.separatedata.common.rule;
 import java.util.List;
 import java.util.Map;
 
-public class SeparateDatabaseRule {
+public class SeparateDataDatabaseRule {
 
     //mode=0 水平分库 mode=1垂直分库
     private int mode;

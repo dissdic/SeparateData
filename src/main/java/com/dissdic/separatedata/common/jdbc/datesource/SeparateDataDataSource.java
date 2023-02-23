@@ -1,7 +1,7 @@
 package com.dissdic.separatedata.common.jdbc.datesource;
 
 import com.dissdic.separatedata.common.context.ContextHolder;
-import com.dissdic.separatedata.common.context.SeparateDataRuleAndDataSourceContext;
+import com.dissdic.separatedata.common.context.SeparateDataShardingRuleAndDataSourceContext;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class SeparateDataDataSource extends AbstractDataSource implements AutoCloseable {
 
-    public SeparateDataDataSource(SeparateDataRuleAndDataSourceContext separateContext){
+    public SeparateDataDataSource(SeparateDataShardingRuleAndDataSourceContext separateContext){
         ContextHolder.setContext(separateContext);
     }
 

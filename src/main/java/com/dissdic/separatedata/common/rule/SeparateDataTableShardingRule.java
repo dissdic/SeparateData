@@ -3,7 +3,7 @@ package com.dissdic.separatedata.common.rule;
 import java.util.List;
 import java.util.Map;
 
-public class SeparateDataTableRule {
+public class SeparateDataTableShardingRule extends SeparateDataShardingRule{
 
     private String tableName;
 
@@ -11,9 +11,6 @@ public class SeparateDataTableRule {
     // 如果忽略，则遇到字段没有表别名的情况，会直接忽视掉，不进行解析。
     // 如果不忽略，则遇到字段没有表别名的情况，会解析每个表的字段结构，判断是否解析
     private boolean ignoreAlias = false;
-
-    // model=1:垂直分表  mode=2:水平分表
-    private String mode;
 
     //垂直分表时 主表名
     private String mainTable;
@@ -35,14 +32,6 @@ public class SeparateDataTableRule {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
     }
 
     public String getMainTable() {
@@ -100,4 +89,5 @@ public class SeparateDataTableRule {
     public void setIgnoreAlias(boolean ignoreAlias) {
         this.ignoreAlias = ignoreAlias;
     }
+
 }

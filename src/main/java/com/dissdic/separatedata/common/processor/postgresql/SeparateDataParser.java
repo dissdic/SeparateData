@@ -1,20 +1,21 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
-import com.dissdic.separatedata.common.context.SeparateDataRuleAndDataSourceContext;
+import com.dissdic.separatedata.common.context.SeparateDataShardingRuleAndDataSourceContext;
 import com.dissdic.separatedata.common.meta.SeparateDataParsingResult;
 import com.dissdic.separatedata.common.meta.SeparateDataTable;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectVisitor;
 import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
-import com.dissdic.separatedata.common.rule.SeparateDataTableRule;
+import com.dissdic.separatedata.common.rule.SeparateDataShardingRule;
+import com.dissdic.separatedata.common.rule.SeparateDataTableShardingRule;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.List;
 
-public class SeparateDataSQLParser {
+public class SeparateDataParser {
 
     private static final String INSERT = "INSERT";
     private static final String UPDATE = "UPDATE";
@@ -83,12 +84,32 @@ public class SeparateDataSQLParser {
         System.out.println("解析完成");
 
         List<SeparateDataTable> involvedTables = SeparateDataVisitorContextHolder.SELECT.getParsingTableList();
-        
-        List<SeparateDataTableRule> tableRules = SeparateDataRuleAndDataSourceContext.getTableRules();
-        for (SeparateDataTableRule tableRule : tableRules) {
-            String tableName = tableRule.getTableName();
+        for (SeparateDataTable involvedTable : involvedTables) {
+            String tableName = involvedTable.getName();
+            SeparateDataShardingRule rule = SeparateDataShardingRuleAndDataSourceContext.getRuleByTable(tableName);
+            if(rule!=null){
+                int mode = rule.getMode();
+                switch (mode){
+                    case SeparateDataShardingRule.HORIZONTAL_TABLE:
 
+                        break;
+                    case SeparateDataShardingRule.VERTICAL_TABLE:
+
+                        break;
+                    case SeparateDataShardingRule.HORIZONTAL_DATABASE:
+
+                        break;
+                    case SeparateDataShardingRule.VERTICAL_DATABASE:
+
+                        break;
+                }
+            }
         }
+
+    }
+
+    public String transfer(String sql,SeparateDataShardingRule rule){
+
     }
 
     public SelectParser selectParser(String sql){
@@ -123,6 +144,7 @@ public class SeparateDataSQLParser {
         }
         visitor.visitGroupbyfields(groupbyfields);
         visitor.visitOrderbyfields(orderbyfields);
+
     }
 
     public void insert(String sql){}

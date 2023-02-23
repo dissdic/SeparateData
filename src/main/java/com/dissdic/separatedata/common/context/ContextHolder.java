@@ -4,15 +4,15 @@ import java.lang.reflect.InvocationHandler;
 
 public class ContextHolder {
 
-    static SeparateDataRuleAndDataSourceContext context;
+    static SeparateDataShardingRuleAndDataSourceContext context;
 
     static InvocationHandler connectionManagerHandler;
 
-    public static void setContext(SeparateDataRuleAndDataSourceContext context){
+    public static void setContext(SeparateDataShardingRuleAndDataSourceContext context){
         ContextHolder.context = context;
     }
 
-    public static SeparateDataRuleAndDataSourceContext getContext(){
+    public static SeparateDataShardingRuleAndDataSourceContext getContext(){
         return ContextHolder.context;
     }
 

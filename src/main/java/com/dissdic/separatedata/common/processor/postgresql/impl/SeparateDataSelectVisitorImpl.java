@@ -17,6 +17,7 @@ public class SeparateDataSelectVisitorImpl extends SelectBaseVisitor<Object> {
 
     @Override
     public Object visitQueryfield(SelectParser.QueryfieldContext ctx) {
+
         SeparateDataVisitorContextHolder.SELECT.resetTmpAlias();
         SelectParser.AliasContext aliasContext = ctx.alias();
         if(aliasContext!=null){

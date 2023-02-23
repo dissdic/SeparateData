@@ -3,10 +3,8 @@ package com.dissdic.separatedata.common.rule;
 import java.util.List;
 import java.util.Map;
 
-public class SeparateDataDatabaseRule {
+public class SeparateDataDatabaseShardingRule extends SeparateDataShardingRule{
 
-    //mode=0 水平分库 mode=1垂直分库
-    private int mode;
     //垂直分库时 主库
     private String mainDataBase;
     //垂直分库时 分库和所包含的表的映射
@@ -18,14 +16,6 @@ public class SeparateDataDatabaseRule {
     private List<String> dataBases;
     //水平分库时 表数据分割算法 返回的值应该是数据库名称
     private String luaExpression;
-
-    public int getMode() {
-        return mode;
-    }
-
-    public void setMode(int mode) {
-        this.mode = mode;
-    }
 
     public String getMainDataBase() {
         return mainDataBase;
@@ -66,4 +56,5 @@ public class SeparateDataDatabaseRule {
     public void setLuaExpression(String luaExpression) {
         this.luaExpression = luaExpression;
     }
+
 }

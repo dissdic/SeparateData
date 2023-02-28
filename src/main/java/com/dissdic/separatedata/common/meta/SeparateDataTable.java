@@ -1,5 +1,7 @@
 package com.dissdic.separatedata.common.meta;
 
+import java.util.List;
+
 public class SeparateDataTable {
 
     private String name;

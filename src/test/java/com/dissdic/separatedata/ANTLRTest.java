@@ -5,6 +5,7 @@ import com.dissdic.separatedata.common.processor.postgresql.Select.SelectLexer;
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataProcessorTrigger;
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataParser;
+import com.dissdic.separatedata.common.processor.postgresql.SeparateDataSQLConverter;
 import com.dissdic.separatedata.common.processor.postgresql.SeparateDataVisitorContextHolder;
 import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectVisitorImpl;
 import org.antlr.v4.runtime.CharStreams;
@@ -57,5 +58,11 @@ public class ANTLRTest {
         SeparateDataParser parser = new SeparateDataParser();
         String sql = "select u.a+ui.b as er,js as jio,uj from user as u left join hhds as ui on u.id = ui.jj";
         parser.parse(sql);
+    }
+
+    @Test
+    public void test2(){
+        SeparateDataSQLConverter converter = new SeparateDataSQLConverter();
+        converter.convertToCount("select name,age from user group by hhh,sdsd",null);
     }
 }

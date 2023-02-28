@@ -11,11 +11,12 @@ import com.dissdic.separatedata.common.rule.SeparateDataShardingRule;
 import com.dissdic.separatedata.common.rule.SeparateDataTableShardingRule;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
+import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.List;
 
-public class SeparateDataParser {
+public class SeparateDataParser extends SeparateDataAbstractParser{
 
     private static final String INSERT = "INSERT";
     private static final String UPDATE = "UPDATE";
@@ -91,6 +92,7 @@ public class SeparateDataParser {
                 int mode = rule.getMode();
                 switch (mode){
                     case SeparateDataShardingRule.HORIZONTAL_TABLE:
+                        //水平分表，首先看条件字段里有没有
 
                         break;
                     case SeparateDataShardingRule.VERTICAL_TABLE:
@@ -108,17 +110,11 @@ public class SeparateDataParser {
 
     }
 
-    public String transfer(String sql,SeparateDataShardingRule rule){
+    public void insert(String sql){}
 
-    }
+    public void update(String sql){}
 
-    public SelectParser selectParser(String sql){
-        CodePointCharStream stream = CharStreams.fromString(sql);
-        SelectLexer selectLexer = new SelectLexer(stream);
-
-        CommonTokenStream token = new CommonTokenStream(selectLexer);
-        return new SelectParser(token);
-    }
+    public void delete(String sql){}
 
     public void selectParse(SelectParser selectParser, SelectVisitor<Object> visitor){
         //先解析涉及到的表
@@ -146,10 +142,4 @@ public class SeparateDataParser {
         visitor.visitOrderbyfields(orderbyfields);
 
     }
-
-    public void insert(String sql){}
-
-    public void update(String sql){}
-
-    public void delete(String sql){}
 }

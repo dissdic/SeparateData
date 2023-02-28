@@ -10,5 +10,5 @@ WORDS : ID | '"'ID'"' | '['ID']'|'`'ID'`';
 INT : DIGIT+;
 ID  : (DIGIT_AND_CHARACTER|UL|SUB)+;
 
-WS : [ \t\n\r]+ ->skip;
+WS : [ \t\n\r]+ ->channel(HIDDEN);
 OTHER : . ->skip;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class SeparateDataTableShardingRule extends SeparateDataShardingRule{
 
+    //垂直或水平分表是的逻辑表
     private String tableName;
 
     // 是否忽略表别名，但涉及多个表联合查询时，会涉及到字段的属于哪张表的问题
@@ -90,4 +91,11 @@ public class SeparateDataTableShardingRule extends SeparateDataShardingRule{
         this.ignoreAlias = ignoreAlias;
     }
 
+    @Override
+    public List<String> physicalTables() {
+        if(mode == HORIZONTAL_TABLE){
+            return subTables;
+        }
+        return null;
+    }
 }

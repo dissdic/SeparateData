@@ -93,7 +93,17 @@ public class SeparateDataParser extends SeparateDataAbstractParser{
                 switch (mode){
                     case SeparateDataShardingRule.HORIZONTAL_TABLE:
                         //水平分表，首先看条件字段里有没有
+                        boolean has = isPresentInCondition(involvedTable);
+                        if(has){
+                            List<String> list = rule.physicalTables();
+                            String countSql = this.convertToCount(selectParser,tableName,sql);
+                            boolean exist = this.queryCount(countSql);
+                            if(exist){
 
+                            }else{
+
+                            }
+                        }
                         break;
                     case SeparateDataShardingRule.VERTICAL_TABLE:
 

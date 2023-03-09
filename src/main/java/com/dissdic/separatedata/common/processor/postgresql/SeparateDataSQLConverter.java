@@ -1,7 +1,6 @@
 package com.dissdic.separatedata.common.processor.postgresql;
 
 import com.dissdic.separatedata.common.processor.postgresql.Select.SelectParser;
-import com.dissdic.separatedata.common.processor.postgresql.impl.SeparateDataSelectConvertVisitorImpl;
 import com.dissdic.separatedata.common.rule.SeparateDataShardingRule;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.Interval;
@@ -20,19 +19,4 @@ public class SeparateDataSQLConverter extends SeparateDataAbstractParser{
         return null;
     }
 
-    public String count(SelectParser selectParser, String sql){
-
-        SelectParser.SelectContext select = selectParser.select();
-        SelectParser.QueryfieldsContext queryfieldsContext = select.queryfields();
-        TerminalNode group = select.GROUP();
-        if(group!=null) {
-            sql = sql.substring(0,group.getSymbol().getStartIndex());
-        }
-        int start =  queryfieldsContext.getStart().getStartIndex();
-        int stop = queryfieldsContext.getStop().getStopIndex();
-        String queryToken = queryfieldsContext.getStart().getInputStream().getText(new Interval(start,stop));
-
-        sql = sql.replace(queryToken,"count(*)");
-        return sql;
-    }
 }

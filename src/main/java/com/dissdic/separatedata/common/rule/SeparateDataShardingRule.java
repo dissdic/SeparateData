@@ -1,5 +1,7 @@
 package com.dissdic.separatedata.common.rule;
 
+import java.util.List;
+
 public abstract class SeparateDataShardingRule {
 
     public final static int HORIZONTAL_TABLE = 1;
@@ -7,7 +9,7 @@ public abstract class SeparateDataShardingRule {
     public final static int HORIZONTAL_DATABASE = 3;
     public final static int VERTICAL_DATABASE = 4;
 
-    private int mode;
+    protected int mode;
 
     public int getMode() {
         return mode;
@@ -16,5 +18,7 @@ public abstract class SeparateDataShardingRule {
     public void setMode(int mode) {
         this.mode = mode;
     }
+
+    public abstract List<String> physicalTables();
 
 }

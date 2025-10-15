@@ -1,0 +1,18 @@
+lexer grammar Keyword;
+import Letter;
+SELECT : S E L E C T;
+FROM : F R O M;
+WHERE : W H E R E;
+AND : A N D;
+OR: O R;
+BETWEEN : B E T W E E N;
+ORDER : O R D E R;
+BY : B Y;
+ASC : A S C;
+DESC: D E S C;
+UNION : U N I O N;
+ALL : A L L;
+LEFT : L E F T;
+RIGHT : R I G H T;
+JOIN : J O I N;
+ON : O N;
